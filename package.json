@@ -1,0 +1,19 @@
+{
+  "name": "ideaconnect",
+  "version": "1.0.0",
+  "description": "Connects Peoples Ideas",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teakyung25/ideaConnect.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teakyung25/ideaConnect/issues"
+  },
+  "homepage": "https://github.com/teakyung25/ideaConnect#readme"
+}
