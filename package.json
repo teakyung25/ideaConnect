@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/teakyung25/ideaConnect/issues"
   },
-  "homepage": "https://github.com/teakyung25/ideaConnect#readme"
+  "homepage": "https://github.com/teakyung25/ideaConnect#readme",
+  "dependencies": {
+    "express.js": "^1.0.0"
+  }
 }
