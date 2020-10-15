@@ -6,7 +6,7 @@ $(function(){
 
         $(".feed").append(`
             <div class="feed_item" id="item1" class="left">
-                <img src="${post.image}" alt="k" class="image_thumb">
+                <img src="${post.imageSrc}" alt="k" class="image_thumb">
                 <div class="item_content">
                     <div class="updown">
                         <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
@@ -39,12 +39,10 @@ $(function(){
     })
 })
 
-
-
 class Post {
     constructor(name, desc, imageSrc) {
         this.name = name;
         this.desc = desc;
-        this.image = imageSrc;
+        this.imageSrc = imageSrc;
     }
 }
