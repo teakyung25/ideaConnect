@@ -1,4 +1,13 @@
 $(function(){
+    /// feed page
+    // updown description showing
+    $(document).on("click", ".updown", (e)=>{
+        console.log(e.currentTarget.parentElement.childNodes[5]);
+        $(e.currentTarget.parentElement.childNodes[5]).toggle();
+        console.log(e.currentTarget.parentElement.childNodes[1].children[0].innerText);
+        (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
+    })
+
     // feed post
     $("#btnNewPost").click(function() {
         console.log("New Post Button Pressed")
@@ -24,6 +33,7 @@ $(function(){
         `);
     })
 
+    /// my ideas page
     // my ideas post
     $("#newIdea").click(function() {
         console.log("New Post!")
@@ -44,23 +54,20 @@ $(function(){
             </div>
         `)
     })
-
-    $(document).on("click", ".updown", (e)=>{
-        console.log(e.currentTarget.parentElement.childNodes[5]);
-        $(e.currentTarget.parentElement.childNodes[5]).toggle();
-        console.log(e.currentTarget.parentElement.childNodes[1].children[0].innerText);
-        (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
+    
+    // message modal
+    $(document).on("click", ".idea_message", (e)=>{
+        $(".modals2").show();
     })
 
     $("#close").click(()=>{
         $(".modals2").hide();
     })
 
-    $(document).on("click", ".idea_message", (e)=>{
-        $(".modals2").show();
-    })
 })
 
+
+// object containing all post-specific data
 class Post {
     constructor(name, desc, imageSrc) {
         this.name = name;
