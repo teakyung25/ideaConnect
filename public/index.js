@@ -52,6 +52,7 @@ $(function(){
         (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
     })
 
+    //Modal for messages
     $("#close").click(()=>{
         $(".modals2").hide();
     })
