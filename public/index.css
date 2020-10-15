@@ -42,6 +42,16 @@ a{
     color:white;
 }
 
+.button_style {
+    border: none;
+    color:white;
+    padding:15px 20px;
+    background: var(--main-nav-color);
+    border-radius: 50px;
+    padding:10px;  
+    margin-right:10px; 
+}
+
 #user_nav{
     width:100%;
     box-sizing: border-box;
@@ -256,9 +266,19 @@ a{
 }
 
 #idea_container{
-    margin: 0 30px;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-auto-rows: minmax(300px, auto);
-    grid-gap: 10px;
+
+}
+
+.idea_item {
+    width: 80%;
+    display: flex;
+    background:var(--item-bg2-color);
+    padding:10px;
+}
+
+.idea_item > * {
+    margin:5px;
+    color:white;
+    display:flex;
+    align-items:center;
 }
