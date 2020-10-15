@@ -1,4 +1,5 @@
 $(function(){
+    // feed post
     $("#btnNewPost").click(function() {
         console.log("New Post Button Pressed")
         post = new Post("Title Name", "This is a description!", "./pics/1.jpg");
