@@ -31,16 +31,23 @@ $(function(){
 
         $("#idea_container").append(`
             <div class="idea_item" id="idea1">
-                <div class="idea-thumb">
-                    <img src="${post.imageSrc}" alt="">
+                <div class="idea-preview">
+                    <div class="idea-thumb">
+                        <img src="${post.imageSrc}" alt="">
+                    </div>
+                    <div class="idea-title">${post.name}</div> 
+                    <span class="flex_grow"></span>
+                    <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
+                    <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
                 </div>
-                <div class="idea-title">
-                    ${post.name}
-                </div> 
-                <span class="flex_grow"></span>
-                <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button>
-                <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
-                <button class="idea_edit destyle_btn" ><i class="material-icons">edit</i></button>
+                <div class="idea-content">
+                    <h3>Title of Project</h3>
+                    <h4>Description Here</h4>
+                    <h5>Owner:</h5>
+                    <h5>Date:</h5>
+                    <h5>Contributers:</h5>
+                </div>
+
             </div>
         `)
     })

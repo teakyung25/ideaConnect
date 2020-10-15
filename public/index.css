@@ -5,6 +5,8 @@
     --item-bg-color:rgb(230,230,230);
     --item-bg2-color:rgb(60,60,60);
     --item-bg3-color:rgb(100,100,100);
+    --item-bg4-color:rgb(245,245,245);
+
 }
 
 *{
@@ -300,17 +302,26 @@ a{
     width:80px;
     border-radius: 2px;
 }
-.idea_item {
+.idea-preview {
     display: flex;
     background:var(--item-bg3-color);
     padding:10px;
 }
 
-.idea_item > * {
+.idea-preview > * {
     margin:5px;
     color:white;
     display:flex;
     align-items:center;
+}
+
+.idea-content {
+  padding: 10px;
+  background: var(--item-bg4-color);
+}
+
+.idea-content > h3 {
+  margin:0;
 }
 
 
