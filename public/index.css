@@ -42,15 +42,15 @@ a{
     color:white;
 }
 
-.button_style {
+/* .button_style {
     border: none;
     color:white;
     padding:15px 20px;
     background: var(--main-nav-color);
     border-radius: 50px;
-    padding:10px;  
+    padding:10px;
     margin-right:10px; 
-}
+} */
 
 #user_nav{
     width:100%;
@@ -79,10 +79,13 @@ a{
     padding:30px;
 }
 
-#feed_nav > a{
+#feed_nav > button {
+    border: none;
+    color:white;
+    padding:15px 20px;
     background: var(--main-nav-color);
     border-radius: 50px;
-    padding:10px;  
+    padding:10px;
     margin-right:10px; 
 }
 
