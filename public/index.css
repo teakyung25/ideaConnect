@@ -3,7 +3,8 @@
     --main-content-color: white;
     --main-bg-color:white;
     --item-bg-color:rgb(230,230,230);
-    --item-bg2-color:rgb(60,60,60,0.8);
+    --item-bg2-color:rgb(60,60,60);
+    --item-bg3-color:rgb(100,100,100);
 }
 
 *{
@@ -271,11 +272,15 @@ a{
 #idea_container{
 
 }
-
+.idea-thumb > img {
+    height:57.5px;
+    width:70px;
+    border-radius: 2px;
+}
 .idea_item {
     width: 80%;
     display: flex;
-    background:var(--item-bg2-color);
+    background:var(--item-bg3-color);
     padding:10px;
 }
 

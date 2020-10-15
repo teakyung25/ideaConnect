@@ -1,18 +1,11 @@
 $(function(){
-    $(".updown").click((e)=>{
-        console.log(e.currentTarget.parentElement.childNodes);
-        $(e.currentTarget.parentElement.childNodes[5]).toggle();
-        console.log($('#item_toggle'));
-        ($("#item_toggle").text() == 'keyboard_arrow_up') ? $("#item_toggle",this).text('keyboard_arrow_down') : $("#item_toggle",this).text('keyboard_arrow_up');
-    })
-
     $("#btnNewPost").click(function() {
         console.log("New Post Button Pressed")
         post = new Post("Title Name", "This is a description!", "./pics/1.jpg");
 
         $(".feed").append(`
             <div class="feed_item" id="item1" class="left">
-                <img src="${post.imageSrc}" alt="" class="image_thumb">
+                <img src="${post.image}" alt="k" class="image_thumb">
                 <div class="item_content">
                     <div class="updown">
                         <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
@@ -29,7 +22,16 @@ $(function(){
             </div>
         `);
     })
+
+    $(document).on("click", ".updown", (e)=>{
+        console.log(e.currentTarget.parentElement.childNodes[5]);
+        $(e.currentTarget.parentElement.childNodes[5]).toggle();
+        console.log(e.currentTarget.parentElement.childNodes[1].children[0].innerText);
+        (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
+    })
 })
+
+
 
 class Post {
     constructor(name, desc, imageSrc) {
