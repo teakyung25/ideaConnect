@@ -60,6 +60,7 @@ $(function(){
         $(".modals2").show();
     })
 
+    //Modal for messages
     $("#close").click(()=>{
         $(".modals2").hide();
     })

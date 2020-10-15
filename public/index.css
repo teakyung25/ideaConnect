@@ -271,21 +271,29 @@ a{
 
 .idea_head {
     display: flex;
+    padding: 10px 0;
+}
+
+.idea_head > * {
+    margin:0;
 }
 
 .idea_head > button {
     border: none;
     color:white;
-    padding:10px 10px;
+    /* padding:10px 10px; */
+    height: min-content;
     background: var(--main-nav-color);
     border-radius: 50px;
-    padding:10px;
-    font-size: x-large;
+
+}
+.idea_head > button > i {
+    display:block;
 }
 
-#idea_container{
+/* #idea_container{
     margin-left: 50px;
-}
+} */
 
 .idea-thumb > img {
     height:57.5px;
@@ -293,7 +301,6 @@ a{
     border-radius: 2px;
 }
 .idea_item {
-    width: 90%;
     display: flex;
     background:var(--item-bg3-color);
     padding:10px;
@@ -319,7 +326,7 @@ a{
     left:0px;
     background: rgba(100,100,100,0.5);
     position: fixed;
-    z-index: 11;
+    z-index: 5;
   }
   .modal{
     background-color: #EBEBEB;
