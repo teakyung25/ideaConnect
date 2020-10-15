@@ -289,11 +289,11 @@ a{
 
 .idea-thumb > img {
     height:57.5px;
-    width:70px;
+    width:80px;
     border-radius: 2px;
 }
 .idea_item {
-    width: 80%;
+    width: 90%;
     display: flex;
     background:var(--item-bg3-color);
     padding:10px;
@@ -305,3 +305,145 @@ a{
     display:flex;
     align-items:center;
 }
+
+
+
+
+/* MODALS  */
+
+
+.modals2{
+    width:100%;
+    height: 100vh;
+    top:0px;
+    left:0px;
+    background: rgba(100,100,100,0.5);
+    position: fixed;
+    z-index: 11;
+  }
+  .modal{
+    background-color: #EBEBEB;
+    padding: 15px;
+    width: 400px;
+    border-radius:5px;
+    z-index:10;
+    font-size: 20px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+  }
+  #message_content{
+    width: unset;
+    padding: 0;
+  }
+  #title_recipient{
+    font-size: 17.5px;
+    font-weight: 500;
+  }
+  .content{
+    width: 50vh;
+    height: 60vh;
+  }
+  #message_modal{
+    display: none;
+  }
+  .modal_heading{
+    background: var(--main-nav-color);
+    padding: 5px;
+    display: flex;
+    border-bottom: 1px solid;
+    color:white; 
+  }
+  .modal_heading > *{ 
+    color:white;
+  }
+
+  #messages_ofUser{
+    height: 100%;
+    overflow-y: auto;
+    font-size:15px;
+  }
+  .message_h3{
+    padding:5px;
+    border-radius:5px;
+    margin:5px;
+    max-width:70%;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  #send_container{
+    display: flex; 
+    padding:5px;
+    background-color:rgb(240,240,240);
+  }
+  #send_btn_form{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  #send_btn{
+    margin-left:10px;
+    /* padding: 5px; */
+    border-radius: 50px;
+  }
+  #message_sendContentForm{
+    margin: 0;
+    padding: 0;
+  }
+  #message_sendContent{
+    /* border-radius: 15px; */
+    width: 100%;
+    padding: 5px;
+    background:none;
+    border:none;
+    border-bottom:1px solid black;
+  }
+  textarea{
+    resize: vertical;
+  }
+  #send_icon{
+    font-size: 20px;
+  }
+  input:focus {
+    outline:none;
+  }
+  .sender_element{
+    width: 100%;
+  }
+  .sender_element > div{
+    width: 100%;
+    display:block;
+    text-align:right;
+  }
+  .sender_element > .message_elm > h3{
+    background:rgb(222,222,222);
+    right:0px;
+    width:auto;
+    display:inline-block;
+  }
+  .recipient_element > .message_elm{
+    text-align:left;
+    width:100%;
+    display:block;
+  }
+  .recipient_element > .message_elm > h3{
+    background:rgb(10,220,10);
+    left:0px;
+    display:inline-block;
+  }
+
+  .destyle_btn{
+    background: transparent;
+    border: none;
+  }
+  .style_btn{
+    background: rgb(40,40,40);
+    color:white;
+    padding:5px;
+    margin: 5px 0;
+  }
+  .style_btn:hover{
+    background:rgb(10,220,10);
+  }
