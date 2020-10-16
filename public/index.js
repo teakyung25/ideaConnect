@@ -13,11 +13,25 @@ $(function(){
         (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
     })
 
-    // search
-    $("#searchForm").submit(function() {
+    // search feed
+    $("#searchForm").submit(function(e) {
+        e.preventDefault();
         console.log("Search Button Pressed");
+        var input = $("input").first().val() // input into search bar
 
-        
+        var ideaArray = getStoredIdeaArray();
+        for (let i = 0; i < ideaArray.length; i++) {
+            let post = ideaArray[i];
+            console.log(post);
+            console.log("feedID: " + post.feedID)
+            if (includesCaseInsensitive(post.name, input)) {
+                $("#" + post.feedID).show();
+                console.log("Show");
+            } else {
+                $("#" + post.feedID).hide();
+                console.log("Hide");
+            }
+        }
     })
 
     // feed post
@@ -105,8 +119,15 @@ class Post {
         this.creationDate = creationDate;
 
         this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.ideaArray
+        this.feedID = "Invalid feedID";
     }
     
+}
+
+/// general helper functions
+function includesCaseInsensitive(testString, filterString) {
+    var regex = new RegExp(filterString, "i");
+    return regex.test(testString);
 }
 
 /// storage functions
@@ -152,14 +173,19 @@ function appendToLocalStorage(post) {
     }
 
     existingKey = JSON.parse(existingKey); // duplicates array
+
+    // add any data that needs to be saved here:
     post.indexStoredAt = existingKey.ideaArray.length; // special value for tracking order of storage
-    existingKey.ideaArray[post.indexStoredAt] = post; // adds post to list
+    updateFeedID(post);
+
+    existingKey.ideaArray[post.indexStoredAt] = post; // adds post to end of list
 
     localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage with the new list
 }
 
 function createLocalStorageArray(firstPost) {
     firstPost.indexStoredAt = 0;
+    updateFeedID(firstPost);
     localStorage.setItem("ideas", JSON.stringify( 
         {
         ideaArray: [firstPost]
@@ -167,11 +193,15 @@ function createLocalStorageArray(firstPost) {
     ));
 }
 
+function updateFeedID(post) {
+    post.feedID = "item" + post.indexStoredAt;
+}
+
 /// html generating functions
 
 function appendToFeed(post) {
     $(".feed").append(`
-    <div class="feed_item" id="item">
+    <div class="feed_item" id="${post.feedID}">
         <img src="${post.imageSrc}" alt="no image" class="image_thumb">
         <div class="item_content">
             <div class="updown">
