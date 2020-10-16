@@ -90,11 +90,6 @@ $(function(){
         $(e.currentTarget.parentElement.childNodes[3]).toggle();
     })
 
-    localStorage.setItem("ideas", JSON.stringify( {'idea1':{'bob':'bfbd'},'idea2':{'bob':'bfbd'}} ) );
-    let getdata = localStorage.getItem('ideas');
-    console.log(JSON.parse(getdata).idea1.bob);
-
-
 })
 
 
