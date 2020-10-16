@@ -72,6 +72,19 @@ $(function(){
         $(".modals2").hide();
     })
 
+    let requestURL = 'http://127.0.0.1:5500/public/ideas.json';
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function () {
+        const ideas = request.response;
+        console.log(ideas);
+    }
+    request.open('POST', requestURL);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify({ "email": "hello@user.com", "response": { "name": "Tester" } }));
+
 })
 
 

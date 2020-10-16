@@ -21,6 +21,16 @@ html, body {
     display: inline-block;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
 .section {
     max-height: 100%;
     width:100%;
@@ -320,8 +330,10 @@ a{
   background: var(--item-bg4-color);
 }
 
-.idea-content > h3 {
+.idea-content > * {
   margin:0;
+  padding:5px;
+  font-weight: 600;
 }
 
 
@@ -364,6 +376,10 @@ a{
     width: 50vh;
     height: 60vh;
   }
+
+
+  /* Message Modal */
+
   #message_modal{
     display: none;
   }
