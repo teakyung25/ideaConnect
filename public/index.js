@@ -109,7 +109,7 @@ class Post {
 
 /// storage functions
 
-// resets localStorage with temp data
+// resets localStorage with temp data. For testing purposes only
 function initializeLocalStorage() {
     localStorage.setItem("ideas", JSON.stringify( 
         {
@@ -117,8 +117,6 @@ function initializeLocalStorage() {
                     new Post("Name", "A boring description", "./pics/2.jpg")]
         }
     ));
-
-    updateFromStorage();
 }
 
 function updateFromStorage() {
