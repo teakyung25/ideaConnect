@@ -134,7 +134,7 @@ function appendToLocalStorage(data) {
 
     existingKey.ideaArray[existingKey.ideaArray.length] = data; // adds data
 
-    localStorage.setItem('ideas', JSON.stringify(existingKey));
+    localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage
 }
 
 /// html generating functions
