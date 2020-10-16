@@ -13,9 +13,33 @@
     <body>
 
         <div class="modals2" id="message_modal">
-            <div id="message_content" class="modal">
+            <div id="" class="modal modal_content">
               <div class="modal_heading">
                 <h3 id="title_recipient">Recipient</h3>
+                <span class="flex_grow"></span>
+                <button class="destyle_btn" id="refreshMessages"><i class="material-icons">refresh</i></button>
+                <button class="destyle_btn" id="close"><i class="material-icons">close</i></button>
+              </div>
+              <div class="content">
+                <div id="messages_box">
+                    <div class='recipient_element'><div class="message_elm"><h3 class="message_h3">sdf</h3></div></div>
+                    <div class='sender_element'><div class="message_elm"><h3 class="message_h3">sdf</h3></div></div>
+
+                </div>
+                <!-- <div id='sneaky_box'></div> -->
+    
+              </div>
+              <div id="send_container">
+                  <form action="" id="send_btn_form"><textarea type="text" id="message_sendContent" rows="1" required></textarea></form>
+                  <button type="submit" form="send_btn_form" value="Submit" class="btnStyle destyle_btn" id="send_btn"><i class="material-icons" id="send_icon">send</i></button>
+              </div>
+            </div>
+        </div>
+
+        <div class="modals2" id="idea_create_modal">
+            <div id="modal_content_create_idea" class="modal modal_content">
+              <div class="modal_heading">
+                <h3 id="title_recipient">Create Idea</h3>
                 <span class="flex_grow"></span>
                 <button class="destyle_btn" id="refreshMessages"><i class="material-icons">refresh</i></button>
                 <button class="destyle_btn" id="close"><i class="material-icons">close</i></button>
@@ -125,8 +149,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <button class="idea_edit destyle_btn" ><i class="material-icons">edit</i></button> -->
                     </div>
                 </div>
             </div>
