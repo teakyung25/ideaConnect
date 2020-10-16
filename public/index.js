@@ -1,4 +1,9 @@
 $(function(){
+    //// storage
+    updateFromStorage();
+
+    //// events
+
     /// feed page
     // updown description showing
     $(document).on("click", ".updown", (e)=>{
@@ -19,25 +24,9 @@ $(function(){
     $("#btnNewPost").click(function() {
         console.log("New Post Button Pressed")
         post = new Post("Title Name", "This is a description!", "./pics/1.jpg");
+        appendToLocalStorage(post);
+        appendToFeed(post);
 
-        $(".feed").append(`
-            <div class="feed_item" id="item">
-                <img src="${post.imageSrc}" alt="no image" class="image_thumb">
-                <div class="item_content">
-                    <div class="updown">
-                        <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
-                    </div>
-                    <div class="item_title">
-                        <h3>${post.name}</h3>
-                        <span class="flex_grow"></span>
-                        <button class="join_btn">Join</button>
-                    </div>
-                    <div class="item_detail">
-                        ${post.desc}
-                    </div>
-                </div>
-            </div>
-        `);
     })
 
     /// my ideas page
@@ -79,10 +68,6 @@ $(function(){
         $(".modals2").hide();
     })
 
-    localStorage.setItem("ideas", JSON.stringify( {'idea1':{'bob':'bfbd'},'idea2':{'bob':'bfbd'}} ) );
-    let getdata = localStorage.getItem('ideas');
-    console.log(JSON.parse(getdata).idea1.bob);
-
 
 })
 
@@ -99,4 +84,59 @@ class Post {
         this.creationDate = creationDate;
     }
     
+}
+
+/// storage functions
+
+// resets localStorage with temp data
+function initializeLocalStorage() {
+    localStorage.setItem("ideas", JSON.stringify( 
+        {
+        ideaArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
+                    new Post("Name", "A boring description", "./pics/2.jpg")]
+        }
+    ));
+
+    updateFromStorage();
+}
+
+function updateFromStorage() {
+    var storedPosts = JSON.parse(localStorage.getItem('ideas')).ideaArray;
+
+    storedPosts.forEach(post => {
+        appendToFeed(post);
+    });
+}
+
+function appendToLocalStorage(data) {
+    var existingKey = localStorage.getItem('ideas'); // current array
+
+    existingKey = existingKey ? JSON.parse(existingKey) : {}; // creates array if new. Duplicates array if not
+
+    existingKey.ideaArray[existingKey.ideaArray.length] = data; // adds data
+
+    localStorage.setItem('ideas', JSON.stringify(existingKey));
+}
+
+/// html generating functions
+
+function appendToFeed(post) {
+    $(".feed").append(`
+    <div class="feed_item" id="item">
+        <img src="${post.imageSrc}" alt="no image" class="image_thumb">
+        <div class="item_content">
+            <div class="updown">
+                <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
+            </div>
+            <div class="item_title">
+                <h3>${post.name}</h3>
+                <span class="flex_grow"></span>
+                <button class="join_btn">Join</button>
+            </div>
+            <div class="item_detail">
+                ${post.desc}
+            </div>
+        </div>
+    </div>
+    `);
 }
