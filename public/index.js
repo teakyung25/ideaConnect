@@ -14,8 +14,8 @@ $(function(){
         post = new Post("Title Name", "This is a description!", "./pics/1.jpg");
 
         $(".feed").append(`
-            <div class="feed_item" id="item1" class="left">
-                <img src="${post.imageSrc}" alt="k" class="image_thumb">
+            <div class="feed_item" id="item">
+                <img src="${post.imageSrc}" alt="no image" class="image_thumb">
                 <div class="item_content">
                     <div class="updown">
                         <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
@@ -40,7 +40,7 @@ $(function(){
         post = new Post("Title", "This is a brief description of my idea post", "./pics/3.jpg")
 
         $("#idea_container").append(`
-            <div class="idea_item" id="idea1">
+            <div class="idea_item" id="idea">
                 <div class="idea-preview">
                     <div class="idea-thumb">
                         <img src="${post.imageSrc}" alt="">
@@ -90,10 +90,14 @@ $(function(){
 
 // object containing all post-specific data
 class Post {
-    constructor(name, desc, imageSrc) {
+    constructor(name, desc, imageSrc, projectOwner, contributers, keywords, creationDate) {
         this.name = name;
         this.desc = desc;
         this.imageSrc = imageSrc;
+        this.projectOwner = projectOwner;
+        this.contributers = contributers;
+        this.keywords = keywords;
+        this.creationDate = creationDate;
     }
     
 }
