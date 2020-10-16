@@ -17,7 +17,7 @@ $(function(){
     $("#searchForm").submit(function(e) {
         e.preventDefault();
         console.log("Search Button Pressed");
-        var input = $("input").first().val() // input into search bar
+        var input = $("input#search_bar").val() // input into search bar
 
         searchPosts(getStoredIdeaArray(), input);
     })
