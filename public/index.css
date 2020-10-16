@@ -281,6 +281,7 @@ a{
     margin:0 30px; 
 }
 
+
 .idea_head {
     display: flex;
     padding: 10px 0;
@@ -325,19 +326,47 @@ a{
     align-items:center;
 }
 
+.idea-content{
+  display: none;
+}
 .idea-content {
   padding: 10px;
   background: var(--item-bg4-color);
+  display:flex;
+  width:100%;
 }
 
 .idea-content > * {
   margin:0;
   padding:5px;
   font-weight: 600;
+  width: 50%;
 }
 
+ .info {
+  /* display:flex; */
+}
 
+.info > * {
+  display:flex;
+  align-items: center;
+  margin:0;
+  padding:7.5px;
+}
 
+.tags{
+  display:flex;
+
+}
+
+.tag {
+  background:var(--main-nav-color);
+  color:white;
+  padding:5px;
+  margin:5px;
+  font-size:12.5px;
+  /* border-radius: 50px; */
+}
 
 /* MODALS  */
 
@@ -481,3 +510,7 @@ a{
   .style_btn:hover{
     background:rgb(10,220,10);
   }
+
+
+  /* Create Idea Modal */
+
