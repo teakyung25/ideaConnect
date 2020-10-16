@@ -119,8 +119,13 @@ function initializeLocalStorage() {
     ));
 }
 
+// in javascript JSON object form
+function getStoredIdeaArray() {
+    return JSON.parse(localStorage.getItem('ideas')).ideaArray;
+}
+
 function updateFromStorage() {
-    var storedPosts = JSON.parse(localStorage.getItem('ideas')).ideaArray;
+    var storedPosts = getStoredIdeaArray();
 
     storedPosts.forEach(post => {
         appendToFeed(post);
