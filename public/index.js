@@ -77,9 +77,13 @@ $(function(){
 
 // object containing all post-specific data
 class Post {
-    constructor(name, desc, imageSrc) {
+    constructor(name, desc, imageSrc, projectOwner, contributers, keywords, creationDate) {
         this.name = name;
         this.desc = desc;
         this.imageSrc = imageSrc;
+        this.projectOwner = projectOwner;
+        this.contributers = contributers;
+        this.keywords = keywords;
+        this.creationDate = creationDate;
     }
 }
