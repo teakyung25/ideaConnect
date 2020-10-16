@@ -126,7 +126,7 @@ function initializeLocalStorage() {
     appendToLocalStorage(new Post("Name", "A boring description", "./pics/2.jpg"));
 }
 
-// in javascript JSON object form
+// get the stored idea array in javascript JSON object form
 function getStoredIdeaArray() {
     var ideaStorage = JSON.parse(localStorage.getItem('ideas'));
     if (!ideaStorage) return null;
