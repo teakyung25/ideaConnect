@@ -103,6 +103,8 @@ class Post {
         this.contributers = contributers;
         this.keywords = keywords;
         this.creationDate = creationDate;
+
+        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.ideaArray
     }
     
 }
@@ -111,35 +113,58 @@ class Post {
 
 // resets localStorage with temp data. For testing purposes only
 function initializeLocalStorage() {
-    localStorage.setItem("ideas", JSON.stringify( 
-        {
-        ideaArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
-                    new Post("Name", "A boring description", "./pics/2.jpg")]
-        }
-    ));
+    localStorage.clear();
+
+    /// example localStorage setup:
+    // localStorage.setItem("ideas", JSON.stringify( 
+    //     {
+    //     ideaArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
+    //                 new Post("Name", "A boring description", "./pics/2.jpg")]
+    //     }
+    // ));
+    appendToLocalStorage(new Post("Title", "Really cool description", "./pics/1.jpg"));
+    appendToLocalStorage(new Post("Name", "A boring description", "./pics/2.jpg"));
 }
 
 // in javascript JSON object form
 function getStoredIdeaArray() {
-    return JSON.parse(localStorage.getItem('ideas')).ideaArray;
+    var ideaStorage = JSON.parse(localStorage.getItem('ideas'));
+    if (!ideaStorage) return null;
+
+    return ideaStorage.ideaArray;
 }
 
 function updateFromStorage() {
     var storedPosts = getStoredIdeaArray();
+    if (!storedPosts) return;
 
     storedPosts.forEach(post => {
         appendToFeed(post);
     });
 }
 
-function appendToLocalStorage(data) {
+// use this function whenever adding to localStorage!
+function appendToLocalStorage(post) {
     var existingKey = localStorage.getItem('ideas'); // current array
+    if (!existingKey) { // doesn't exist yet
+        createLocalStorageArray(post); // makes first instance
+        return;
+    }
 
-    existingKey = existingKey ? JSON.parse(existingKey) : {}; // creates array if new. Duplicates array if not
+    existingKey = JSON.parse(existingKey); // duplicates array
+    post.indexStoredAt = existingKey.ideaArray.length; // special value for tracking order of storage
+    existingKey.ideaArray[post.indexStoredAt] = post; // adds post to list
 
-    existingKey.ideaArray[existingKey.ideaArray.length] = data; // adds data
+    localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage with the new list
+}
 
-    localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage
+function createLocalStorageArray(firstPost) {
+    firstPost.indexStoredAt = 0;
+    localStorage.setItem("ideas", JSON.stringify( 
+        {
+        ideaArray: [firstPost]
+        }
+    ));
 }
 
 /// html generating functions
