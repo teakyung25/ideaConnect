@@ -82,4 +82,5 @@ class Post {
         this.desc = desc;
         this.imageSrc = imageSrc;
     }
+    
 }
