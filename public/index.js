@@ -120,7 +120,7 @@ class Post {
 
 /// storage functions
 
-// resets localStorage with temp data
+// resets localStorage with temp data. For testing purposes only
 function initializeLocalStorage() {
     localStorage.setItem("ideas", JSON.stringify( 
         {
@@ -128,12 +128,15 @@ function initializeLocalStorage() {
                     new Post("Name", "A boring description", "./pics/2.jpg")]
         }
     ));
+}
 
-    updateFromStorage();
+// in javascript JSON object form
+function getStoredIdeaArray() {
+    return JSON.parse(localStorage.getItem('ideas')).ideaArray;
 }
 
 function updateFromStorage() {
-    var storedPosts = JSON.parse(localStorage.getItem('ideas')).ideaArray;
+    var storedPosts = getStoredIdeaArray();
 
     storedPosts.forEach(post => {
         appendToFeed(post);
@@ -147,7 +150,7 @@ function appendToLocalStorage(data) {
 
     existingKey.ideaArray[existingKey.ideaArray.length] = data; // adds data
 
-    localStorage.setItem('ideas', JSON.stringify(existingKey));
+    localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage
 }
 
 /// html generating functions
