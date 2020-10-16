@@ -8,6 +8,13 @@ $(function(){
         (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
     })
 
+    // search
+    $("#searchForm").submit(function() {
+        console.log("Search Button Pressed");
+
+        
+    })
+
     // feed post
     $("#btnNewPost").click(function() {
         console.log("New Post Button Pressed")
