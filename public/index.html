@@ -13,7 +13,7 @@
     <body>
 
         <div class="modals2" id="message_modal">
-            <div id="message_content" class="modal">
+            <div id="" class="modal modal_content">
               <div class="modal_heading">
                 <h3 id="title_recipient">Recipient</h3>
                 <span class="flex_grow"></span>
@@ -33,6 +33,40 @@
                   <form action="" id="send_btn_form"><textarea type="text" id="message_sendContent" rows="1" required></textarea></form>
                   <button type="submit" form="send_btn_form" value="Submit" class="btnStyle destyle_btn" id="send_btn"><i class="material-icons" id="send_icon">send</i></button>
               </div>
+            </div>
+        </div>
+
+        <div class="modals2" id="idea_create_modal">
+            <div id="modal_content_create_idea" class="modal modal_content">
+              <div class="modal_heading">
+                <h3 id="title_recipient">Create Idea</h3>
+                <span class="flex_grow"></span>
+              </div>
+              <div class="content">
+                <form id="create_idea_form">
+                    <input name="title" id="title_input" placeholder="Title" required></input>
+                    <textarea type="text" id="description_input" placeholder="Description" rows="10" cols="10"  required></textarea>                    
+                    <p>Select Tags: </p>
+                    <div class="tags">
+                        <div class="tag" id="coding">Coding</div>
+                        <div class="tag" id="art">Art</div>
+                        <div class="tag" id="coding">Coding</div>
+                        <div class="tag" id="art">Art</div>
+                        <div class="tag" id="coding">Coding</div>
+                        <div class="tag" id="art">Art</div>
+                        <div class="tag" id="coding">Coding</div>
+                        <div class="tag" id="art">Art</div>
+                    </div>
+                    <div class="btn-container">
+                        <button class="btnStyle destyle_btn" id="close_create_idea">Cancel<i class="material-icons">close</i></button>
+                        <button type="submit" form="send_btn_form" value="Submit" class="btnStyle destyle_btn" id="submit_btn">Done<i class="material-icons" id="send_icon">check</i></button>
+                    </div>
+                </form>
+              </div>
+              <!-- <div id="send_container">
+                  <form action="" id="send_btn_form"><textarea type="text" id="message_sendContent" rows="1" required></textarea></form>
+                  <button type="submit" form="send_btn_form" value="Submit" class="btnStyle destyle_btn" id="send_btn"><i class="material-icons" id="send_icon">send</i></button>
+              </div> -->
             </div>
         </div>
 
@@ -125,8 +159,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <button class="idea_edit destyle_btn" ><i class="material-icons">edit</i></button> -->
                     </div>
                 </div>
             </div>

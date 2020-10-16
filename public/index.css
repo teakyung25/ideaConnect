@@ -326,14 +326,11 @@ a{
     align-items:center;
 }
 
-.idea-content{
-  display: none;
-}
+
 .idea-content {
   padding: 10px;
   background: var(--item-bg4-color);
   display:flex;
-  width:100%;
 }
 
 .idea-content > * {
@@ -393,17 +390,20 @@ a{
     transform: translate(-50%, -50%);
     position: fixed;
   }
-  #message_content{
+  .modal_content{
     width: unset;
     padding: 0;
   }
+
   #title_recipient{
     font-size: 17.5px;
     font-weight: 500;
   }
   .content{
-    width: 50vh;
+    width: auto;
     height: 60vh;
+    overflow-x: hidden;
+    overflow-y:auto;
   }
 
 
@@ -514,3 +514,50 @@ a{
 
   /* Create Idea Modal */
 
+  #modal_content_create_idea {
+    width:500px
+  }
+
+  #idea_create_modal{
+    display:none;
+  }
+
+  #create_idea_form{
+    display: inline-block;
+    padding:10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #create_idea_form > input, textarea {
+    width: 50%;
+    margin:5px;
+    padding: 5px;
+    background:none;
+    border:none;
+    border-bottom:2px solid black;
+  }
+
+  #create_idea_form > * {
+    display:flex;
+  }
+
+  #create_idea_form > p {
+    font-size: 15px;
+    margin:0 5px;
+  }
+
+  .btn-container{
+    float:right;
+  }
+
+  .btn-container > button {
+    background: var(--item-bg3-color);
+    display:flex;
+    align-items: center;
+    color:white;
+    margin:5px;
+  }
+  #submit_btn{
+    background: var(--item-bg2-color);
+  }
