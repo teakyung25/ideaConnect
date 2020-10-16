@@ -19,19 +19,7 @@ $(function(){
         console.log("Search Button Pressed");
         var input = $("input").first().val() // input into search bar
 
-        var ideaArray = getStoredIdeaArray();
-        for (let i = 0; i < ideaArray.length; i++) {
-            let post = ideaArray[i];
-            console.log(post);
-            console.log("feedID: " + post.feedID)
-            if (includesCaseInsensitive(post.name, input)) {
-                $("#" + post.feedID).show();
-                console.log("Show");
-            } else {
-                $("#" + post.feedID).hide();
-                console.log("Hide");
-            }
-        }
+        searchPosts(getStoredIdeaArray(), input);
     })
 
     // feed post
@@ -128,6 +116,18 @@ class Post {
 function includesCaseInsensitive(testString, filterString) {
     var regex = new RegExp(filterString, "i");
     return regex.test(testString);
+}
+
+// shows and hides posts according to if their name includes filterString
+function searchPosts(searchList, filterString) {
+    for (let i = 0; i < searchList.length; i++) {
+        let post = searchList[i];
+        if (includesCaseInsensitive(post.name, filterString)) {
+            $("#" + post.feedID).show();
+        } else {
+            $("#" + post.feedID).hide();
+        }
+    }
 }
 
 /// storage functions
