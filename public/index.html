@@ -42,24 +42,24 @@
                 <h3 id="title_recipient">Create Idea</h3>
                 <span class="flex_grow"></span>
               </div>
-              <div class="content">
-                <form id="create_idea_form">
-                    <input name="title" id="title_input" placeholder="Title" required></input>
-                    <textarea type="text" id="description_input" placeholder="Description" rows="10" cols="10"  required></textarea>                    
+              <div class="content" id="create_content">
+                <form id="create_idea_form" name="form">
+                    <input name="title" id="title_input" placeholder="Title" ></input>
+                    <textarea name="description" type="text" id="description_input" placeholder="Description" rows="10" cols="10"  ></textarea>                    
                     <p>Select Tags: </p>
-                    <div class="tags">
-                        <div class="tag" id="coding">Coding</div>
-                        <div class="tag" id="art">Art</div>
-                        <div class="tag" id="coding">Coding</div>
-                        <div class="tag" id="art">Art</div>
-                        <div class="tag" id="coding">Coding</div>
-                        <div class="tag" id="art">Art</div>
-                        <div class="tag" id="coding">Coding</div>
-                        <div class="tag" id="art">Art</div>
+                    <div class="tags" name="tags" id="selectable-tags">
+                        <div class="select_tag tag" id="coding">Coding</div>
+                        <div class="select_tag tag" id="art">Art</div>
+                        <div class="select_tag tag" id="engineering">Engineering</div>
+                        <div class="select_tag tag" id="math">Math</div>
+                        <div class="select_tag tag" id="biology">Biology</div>
+                        <div class="select_tag tag" id="chemistry">Chemistry</div>
+                        <div class="select_tag tag" id="physics">Pyhsics</div>
+                        <div class="select_tag tag" id="finance">Finance</div>
                     </div>
                     <div class="btn-container">
-                        <button class="btnStyle destyle_btn" id="close_create_idea">Cancel<i class="material-icons">close</i></button>
-                        <button type="submit" form="send_btn_form" value="Submit" class="btnStyle destyle_btn" id="submit_btn">Done<i class="material-icons" id="send_icon">check</i></button>
+                        <button  type="button" class="btnStyle destyle_btn" id="close_create_idea" name="cancel_btn">Cancel<i class="material-icons">close</i></button>
+                        <button name="submit_btn" class="btnStyle destyle_btn" id="submit_btn">Done<i class="material-icons" id="send_icon">check</i></button>
                     </div>
                 </form>
               </div>

@@ -1,11 +1,13 @@
 :root{
     --main-nav-color: #ff9900ff;
+    --main-nav-hover: rgb(255, 180, 68);
     --main-content-color: white;
     --main-bg-color:white;
     --item-bg-color:rgb(230,230,230);
     --item-bg2-color:rgb(60,60,60);
     --item-bg3-color:rgb(100,100,100);
     --item-bg4-color:rgb(245,245,245);
+    /* --item-bg5-color:rgb(235,235,235); */
 
 }
 
@@ -80,7 +82,7 @@ a{
     padding:0;
 }
 #user_nav > a:hover{
-    background:rgb(255, 180, 68);
+    background:var(--main-nav-hover);
 }
 
 .flex_grow {
@@ -175,6 +177,7 @@ a{
 
 ::-webkit-scrollbar {
     width: 7.5px;
+    height: 5px;
 }
    
 ::-webkit-scrollbar-track {
@@ -362,8 +365,17 @@ a{
   padding:5px;
   margin:5px;
   font-size:12.5px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+  
   /* border-radius: 50px; */
 }
+
 
 /* MODALS  */
 
@@ -400,13 +412,15 @@ a{
     font-weight: 500;
   }
   .content{
-    width: auto;
+    width: 50vh;
     height: 60vh;
     overflow-x: hidden;
     overflow-y:auto;
   }
 
-
+  #create_content{
+    width: auto;
+  }
   /* Message Modal */
 
   #message_modal{
@@ -531,7 +545,7 @@ a{
 
   #create_idea_form > input, textarea {
     width: 50%;
-    margin:5px;
+    /* margin:5px; */
     padding: 5px;
     background:none;
     border:none;
@@ -540,11 +554,16 @@ a{
 
   #create_idea_form > * {
     display:flex;
+    margin:10px 5px;
+
   }
 
   #create_idea_form > p {
-    font-size: 15px;
-    margin:0 5px;
+    font-size: 13px;
+  }
+
+  #selectable-tags{
+    overflow-x:auto;
   }
 
   .btn-container{
@@ -560,4 +579,19 @@ a{
   }
   #submit_btn{
     background: var(--item-bg2-color);
+  }
+  
+  .select_tag{
+    cursor:pointer;
+    background: var(--item-bg4-color);
+    color:black;
+  }
+  .select_tag:hover{
+    background:var(--main-nav-hover);
+    color:white;
+  }
+
+  .selected {
+    background: var(--main-nav-color);
+    color:white;
   }
