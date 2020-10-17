@@ -80,7 +80,7 @@
                 <span class="flex_grow"></span>
                 <a href="#home">Home</a>
                 <a href="#ideas">Your Ideas</a>
-                <a href="">Login</a>
+                <a href="#account">Account</a>
             </nav>
             <div class="feed_nav_container">
                 <div id="feed_nav">
@@ -111,7 +111,7 @@
                 <span class="flex_grow"></span>
                 <a href="#home">Home</a>
                 <a href="#ideas">Your Ideas</a>
-                <a href="">Login</a>
+                <a href="#account">Account</a>
             </nav>
 
             <div class="container">
@@ -163,6 +163,39 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="section" id="account">
+            <nav id="user_nav">
+                <span class="site_icon" href="#home">iC</span>
+                <span class="flex_grow"></span>
+                <a href="#home">Home</a>
+                <a href="#ideas">Your Ideas</a>
+                <a href="#account">Account</a>
+            </nav>
+            <div class="container" id="setting_container">
+                <h1>Your Account</h1>
+                <form id="edit_account">
+                    <input name="username" type="text" value="usernamehere" placeholder="Username">
+                    <div class="name">
+                        <input type="text" value="firstname" placeholder="Firstname">
+                        <input type="text" value="lastname" placeholder="Lastname">
+                    </div>
+                    <input type="text" value="useremail" placeholder="email">
+                    <p>Select Tags: </p>
+                    <div class="tags" name="tags" id="selectable-tags">
+                        <div class="select_tag tag" id="coding">Coding</div>
+                        <div class="select_tag tag" id="art">Art</div>
+                        <div class="select_tag tag" id="engineering">Engineering</div>
+                        <div class="select_tag tag" id="math">Math</div>
+                        <div class="select_tag tag" id="biology">Biology</div>
+                        <div class="select_tag tag" id="chemistry">Chemistry</div>
+                        <div class="select_tag tag" id="physics">Pyhsics</div>
+                        <div class="select_tag tag" id="finance">Finance</div>
+                    </div>
+                    <button id="edit_account_btn" class="destyle_btn">save</button>
+                </form>
+            </div>
         </div>
 
     </body>

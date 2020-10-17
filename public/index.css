@@ -543,7 +543,7 @@ a{
     box-sizing: border-box;
   }
 
-  #create_idea_form > input, textarea {
+ input, textarea {
     width: 50%;
     /* margin:5px; */
     padding: 5px;
@@ -594,4 +594,24 @@ a{
   .selected {
     background: var(--main-nav-color);
     color:white;
+  }
+
+
+
+  /* EDIT ACCOUNT PAGE  */
+
+  #edit_account > * {
+    width: 50%;
+    margin: 10px 0;
+    box-sizing: border-box;
+  }
+
+  .name{
+    display: flex;
+  }
+
+  #edit_account_btn{
+    background: var(--item-bg3-color);
+    color:white;
+    padding:10px;
   }
