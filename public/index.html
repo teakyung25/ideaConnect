@@ -7,6 +7,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script src="match.js"></script>
         <script src="index.js"></script>
         <title>IdeaConnect</title>
     </head>
@@ -48,14 +49,14 @@
                     <textarea name="description" type="text" id="description_input" placeholder="Description" rows="10" cols="10"  ></textarea>                    
                     <p>Select Tags: </p>
                     <div class="tags" name="tags" id="selectable-tags">
-                        <div class="select_tag tag" id="coding">Coding</div>
-                        <div class="select_tag tag" id="art">Art</div>
-                        <div class="select_tag tag" id="engineering">Engineering</div>
-                        <div class="select_tag tag" id="math">Math</div>
-                        <div class="select_tag tag" id="biology">Biology</div>
-                        <div class="select_tag tag" id="chemistry">Chemistry</div>
-                        <div class="select_tag tag" id="physics">Pyhsics</div>
-                        <div class="select_tag tag" id="finance">Finance</div>
+                        <div class="select_tag tag" id="coding_modal" name="coding">Coding</div>
+                        <div class="select_tag tag" id="art_modal" name="art">Art</div>
+                        <div class="select_tag tag" id="engineering_modal" name="engineering">Engineering</div>
+                        <div class="select_tag tag" id="math_modal" name="math">Math</div>
+                        <div class="select_tag tag" id="biology_modal" name="biology">Biology</div>
+                        <div class="select_tag tag" id="chemistry_modal" name="chemistry">Chemistry</div>
+                        <div class="select_tag tag" id="physics_modal" name="physics">Pyhsics</div>
+                        <div class="select_tag tag" id="finance_modal" name="finance">Finance</div>
                     </div>
                     <div class="btn-container">
                         <button  type="button" class="btnStyle destyle_btn" id="close_create_idea" name="cancel_btn">Cancel<i class="material-icons">close</i></button>
@@ -186,14 +187,14 @@
                         <input type="text" value="useremail" placeholder="email" id="email_editable">
                         <p>Select Tags: </p>
                         <div class="tags" name="tags" id="selectable-tags">
-                            <div class="select_tag tag" id="coding">Coding</div>
-                            <div class="select_tag tag" id="art">Art</div>
-                            <div class="select_tag tag" id="engineering">Engineering</div>
-                            <div class="select_tag tag" id="math">Math</div>
-                            <div class="select_tag tag" id="biology">Biology</div>
-                            <div class="select_tag tag" id="chemistry">Chemistry</div>
-                            <div class="select_tag tag" id="physics">Pyhsics</div>
-                            <div class="select_tag tag" id="finance">Finance</div>
+                            <div class="select_tag tag" name="coding" id="coding">Coding</div>
+                            <div class="select_tag tag" name="art" id="art">Art</div>
+                            <div class="select_tag tag" name="engineering" id="engineering">Engineering</div>
+                            <div class="select_tag tag" name="math" id="math">Math</div>
+                            <div class="select_tag tag" name="biology" id="biology">Biology</div>
+                            <div class="select_tag tag" name="chemistry" id="chemistry">Chemistry</div>
+                            <div class="select_tag tag" name="physics" id="physics">Pyhsics</div>
+                            <div class="select_tag tag" name="finance" id="finance">Finance</div>
                         </div>
                         <button id="edit_account_btn" class="destyle_btn">save</button>
                     </form>

@@ -14,7 +14,7 @@ $(function(){
         var username_universal = parseURL(window.location.href);
     
         addUserInfoAccounts(username_universal);
-
+        
     /// feed page
     $(document).on("click", ".updown", (e)=>{
         console.log(e.currentTarget.parentElement.childNodes[5]);
@@ -55,15 +55,17 @@ $(function(){
         let allSelect = document.querySelectorAll(".selected");
         let keywords = [];
         let date = new Date();
-        console.log(allSelect[0]);
+        console.log(allSelect);
         //gets all the selected keywords 
         for(var i = 0; i < allSelect.length; i++){
-            console.log(allSelect[i].id);
-            keywords.push(allSelect[i].id);
+            console.log(allSelect[i].innerHTML.toLowerCase());
+            if(allSelect[i].id == `${allSelect[i].innerHTML.toLowerCase()}_modal`) {
+                keywords.push(allSelect[i].innerHTML.toLowerCase());
+            }
         }
         console.log("New Post!")
         //pushes data in to local storage
-        let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 8)}.jpg`,"bob","",keywords,date);
+        let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
         appendToLocalStorage(post);
         
                 $("#idea_container").append(`
@@ -376,11 +378,16 @@ function addUserInfoAccounts(username) {
                 let str = user.keywords[i].toLowerCase();
                 console.log(str);
                 console.log(document.querySelectorAll(`#${str}`));
-                document.querySelectorAll(`#${str}`)[1].className = "selected select_tag tag";
+                document.querySelectorAll(`#${str}`)[0].className = "selected select_tag tag";
+            }
+            ////MATCHING ALGORITHM: LOCATION IS HERE JUST FOR TESTING Reasons BETTER place soon
+            if(getStoredIdeaArray() != null) {
+                match(getStoredIdeaArray(),user.keywords, username);
             }
             break;
         }
     }
+
 }
 /// html generating functions
 
