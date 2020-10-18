@@ -5,7 +5,7 @@ $(function(){
     //Parses user from url 
     function parseURL (url) {
         var queryStart = url.indexOf("?") + 1,
-        queryEnd   = url.indexOf("#")  ,
+        queryEnd = url.indexOf("#")  ,
         query = url.slice(queryStart, queryEnd );
         console.log(query);
         return query;
@@ -130,19 +130,14 @@ $(function(){
             console.log(allSelect[i].id);
             keywords.push(allSelect[i].id);
         }
-        let users = getStoredUser();
-        console.log(users);
-        for (let i = 0; i < users.length; i++) {
-            let user = users[i];
-            if (user.username == data[0]) {
-                let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
-                userObject.indexStoredAt = users.length; // special value for tracking order of storage
-                updateUserID(userObject);
-                users[i] = userObject;
-                break;
-            }
+        let user = getStoredUser();
+        console.log(user);
+        if (user.username == data[0]) {
+            let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
+            updateUserID(userObject);
+            users = userObject;
         }
-        localStorage.setItem('user', JSON.stringify({userArray: users})); // updates localStorage with the new list
+        storeUser(user);
     })
 
 })
@@ -176,8 +171,7 @@ class User {
         this.password = password;
         this.creationDate = creationDate;
 
-        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage users: userArray
-        this.userID = "Invalid feedID";
+        this.userID = "Invalid userID";
     }
     
 }
@@ -205,7 +199,7 @@ function searchPosts(searchList, filterString) {
 
 // resets localStorage with temp data. For testing purposes only
 function initializeLocalStorage() {
-    localStorage.clear();
+    localStorage.posts.clear();
 
     /// example localStorage setup:
     // localStorage.setItem("posts", JSON.stringify( 
@@ -218,20 +212,11 @@ function initializeLocalStorage() {
     appendToLocalStorage(new Post("Name", "A boring description", "./pics/2.jpg"));
 }
 
-// resets localStoarge with user temp data. for testing
-// function initializeUserLocalStorage() {
-//     localStorage.clear();
-
-//     /// example localStorage setup:
-//     // localStorage.setItem("posts", JSON.stringify( 
-//     //     {
-//     //     postArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
-//     //                 new Post("Name", "A boring description", "./pics/2.jpg")]
-//     //     }
-//     // ));
-//     let date = new Date();
-//     appendToUserLocalStorage(new User("kyim","Bob", "Kim", "bob.kim@bob.kim",[],date));
-// }
+// resets localStoarge with user temp data. For testing purposes only
+function initializeUserLocalStorage() {
+    let date = new Date();
+    storeUser(new User("kyim","Bob", "Kim", "bob.kim@bob.kim",[],date));
+}
 
 
 // get the stored idea array in javascript JSON object form
@@ -243,7 +228,7 @@ function getStoredPostArray() {
 }
 
 function getStoredUser() {
-    var userStorage = JSON.parse(localStorage.getItem('users'));
+    var userStorage = JSON.parse(localStorage.getItem('user'));
     if (!userStorage) return null;
 
     return userStorage;
@@ -252,11 +237,15 @@ function getStoredUser() {
 function updateFromStorage() {
     var storedPosts = getStoredPostArray();
     var user = getStoredUser();
-    if (!storedPosts) return;
+    if (!storedPosts || !user) return;
 
     storedPosts.forEach(post => {
         appendToFeed(post);
+        if (post.projectOwner === user.username) {
+            appendToYourIdeas();
+        }
     });
+
 }
 
 // use this function whenever adding to localStorage!
@@ -279,26 +268,10 @@ function appendToLocalStorage(post) {
     localStorage.setItem('posts', JSON.stringify(existingKey)); // updates localStorage with the new list
 }
 
-
-// function appendToUserLocalStorage(user) {
-//     var existingKey = localStorage.getItem('users'); // current array
-//     if (!existingKey) { // doesn't exist yet
-//         createLocalStorageArray(user); // makes first instance
-//         return;
-//     }
-
-//     existingKey = JSON.parse(existingKey); // duplicates array
-
-//     // add any data that needs to be saved here:
-//     user.indexStoredAt = existingKey.postArray.length; // special value for tracking order of storage
-//     updateFeedID(user);
-//     console.log(user.keywords)
-
-//     existingKey.postArray[user.indexStoredAt] = user; // adds post to end of list
-
-//     localStorage.setItem('users', JSON.stringify(existingKey)); // updates localStorage with the new list
-// }
-
+// updates localStorage with the new user (overwriting the old one)
+function storeUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+}
 
 function createLocalStorageArray(firstPost) {
     firstPost.indexStoredAt = 0;
@@ -310,16 +283,6 @@ function createLocalStorageArray(firstPost) {
     ));
 }
 
-// function createLocalUserStorageArray(firstPost) {
-//     firstPost.indexStoredAt = 0;
-//     updateUserID(firstPost);
-//     localStorage.setItem("user", JSON.stringify( 
-//         {
-//         userArray: [firstPost]
-//         }
-//     ));
-// }
-
 function updateFeedID(post) {
     post.feedID = "item" + post.indexStoredAt;
 }
@@ -330,27 +293,23 @@ function updateUserID(user) {
 
 //updates setting after login
 function addUserInfoAccounts(username) {
-    let users = getStoredUser();
-    console.log(users);
-    for (let i = 0; i < users.length; i++) {
-        let user = users[i];
-        if (user.username == username) {
-            console.log(user);
-            document.getElementById("username_editable").value = user.username;
-            document.getElementById("first_editable").value = user.firstname;
-            document.getElementById("last_editable").value = user.lastname;
-            document.getElementById("email_editable").value = user.email;
-            for(let i = 0; i < user.keywords.length; i++){
-                let str = user.keywords[i].toLowerCase();
-                console.log(str);
-                console.log(document.querySelectorAll(`#${str}`));
-                document.querySelectorAll(`#${str}`)[0].className = "selected select_tag tag";
-            }
-            ////MATCHING ALGORITHM: LOCATION IS HERE JUST FOR TESTING Reasons BETTER place soon
-            if(getStoredPostArray() != null) {
-                match(getStoredPostArray(),user.keywords, username);
-            }
-            break;
+    let user = getStoredUser();
+    console.log(user);
+    if (user.username == username) {
+        console.log("Username matches");
+        document.getElementById("username_editable").value = user.username;
+        document.getElementById("first_editable").value = user.firstname;
+        document.getElementById("last_editable").value = user.lastname;
+        document.getElementById("email_editable").value = user.email;
+        for(let i = 0; i < user.keywords.length; i++){
+            let str = user.keywords[i].toLowerCase();
+            console.log(str);
+            console.log(document.querySelectorAll(`#${str}`));
+            document.querySelectorAll(`#${str}`)[0].className = "selected select_tag tag";
+        }
+        ////MATCHING ALGORITHM: LOCATION IS HERE JUST FOR TESTING Reasons BETTER place soon
+        if(getStoredPostArray() != null) {
+            match(getStoredPostArray(),user.keywords, username);
         }
     }
 
