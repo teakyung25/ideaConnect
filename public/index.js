@@ -1,4 +1,18 @@
 $(function(){
+
+    //Parses user from url 
+    function parseURL (url) {
+        var queryStart = url.indexOf("?") + 1,
+        queryEnd   = url.indexOf("#")  ,
+        query = url.slice(queryStart, queryEnd );
+        console.log(query);
+        return query;
+    }
+    // Get User from url, for testing purposes, better method must be used later
+    var username_universal = parseURL(window.location.href);
+    
+    addUserInfoAccounts(username_universal);
+
     //// storage
     updateFromStorage();
 
