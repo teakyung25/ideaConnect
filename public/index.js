@@ -130,7 +130,7 @@ $(function(){
             console.log(allSelect[i].id);
             keywords.push(allSelect[i].id);
         }
-        let users = getStoredUserArray();
+        let users = getStoredUser();
         console.log(users);
         for (let i = 0; i < users.length; i++) {
             let user = users[i];
@@ -142,7 +142,7 @@ $(function(){
                 break;
             }
         }
-        localStorage.setItem('users', JSON.stringify({userArray: users})); // updates localStorage with the new list
+        localStorage.setItem('user', JSON.stringify({userArray: users})); // updates localStorage with the new list
     })
 
 })
@@ -242,15 +242,16 @@ function getStoredPostArray() {
     return postStorage.postArray;
 }
 
-function getStoredUserArray() {
+function getStoredUser() {
     var userStorage = JSON.parse(localStorage.getItem('users'));
     if (!userStorage) return null;
 
-    return userStorage.userArray;
+    return userStorage;
 }
 
 function updateFromStorage() {
     var storedPosts = getStoredPostArray();
+    var user = getStoredUser();
     if (!storedPosts) return;
 
     storedPosts.forEach(post => {
@@ -312,7 +313,7 @@ function createLocalStorageArray(firstPost) {
 // function createLocalUserStorageArray(firstPost) {
 //     firstPost.indexStoredAt = 0;
 //     updateUserID(firstPost);
-//     localStorage.setItem("users", JSON.stringify( 
+//     localStorage.setItem("user", JSON.stringify( 
 //         {
 //         userArray: [firstPost]
 //         }
@@ -329,7 +330,7 @@ function updateUserID(user) {
 
 //updates setting after login
 function addUserInfoAccounts(username) {
-    let users = getStoredUserArray();
+    let users = getStoredUser();
     console.log(users);
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
