@@ -142,7 +142,7 @@ $(function(){
                 break;
             }
         }
-        localStorage.setItem('users', JSON.stringify({usersArray: users})); // updates localStorage with the new list
+        localStorage.setItem('users', JSON.stringify({userArray: users})); // updates localStorage with the new list
     })
 
 })
@@ -175,7 +175,7 @@ class User {
         this.password = password;
         this.creationDate = creationDate;
 
-        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.postArray
+        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage users: userArray
         this.userID = "Invalid feedID";
     }
     
@@ -245,7 +245,7 @@ function getStoredUserArray() {
     var userStorage = JSON.parse(localStorage.getItem('users'));
     if (!userStorage) return null;
 
-    return userStorage.usersArray;
+    return userStorage.userArray;
 }
 
 function updateFromStorage() {
@@ -313,7 +313,7 @@ function createLocalStorageArray(firstPost) {
 //     updateUserID(firstPost);
 //     localStorage.setItem("users", JSON.stringify( 
 //         {
-//         usersArray: [firstPost]
+//         userArray: [firstPost]
 //         }
 //     ));
 // }
