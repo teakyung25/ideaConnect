@@ -360,61 +360,61 @@ function addUserInfoAccounts(username) {
 
 function appendToFeed(post) {
     $("#your_feed").append(`
-    <div class="feed_item" id="${post.feedID}">
-        <img src="${post.imageSrc}" alt="no image" class="image_thumb">
-        <div class="item_content">
-            <div class="updown">
-                <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
-            </div>
-            <div class="item_title">
-                <h3>${post.name}</h3>
-                <span class="flex_grow"></span>
-                <button class="join_btn">Join</button>
-            </div>
-            <div class="item_detail">
-                ${post.desc}
+        <div class="feed_item" id="${post.feedID}">
+            <img src="${post.imageSrc}" alt="no image" class="image_thumb">
+            <div class="item_content">
+                <div class="updown">
+                    <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
+                </div>
+                <div class="item_title">
+                    <h3>${post.name}</h3>
+                    <span class="flex_grow"></span>
+                    <button class="join_btn">Join</button>
+                </div>
+                <div class="item_detail">
+                    ${post.desc}
+                </div>
             </div>
         </div>
-    </div>
     `);
 }
 
 function appendToYourIdeas(post) {
     $("#idea_container").append(`
         <div class="idea_item" id="idea1">
-                <div class="idea-preview">
-                    <div class="idea-thumb">
-                        <img src="${post.imageSrc}" alt="">
-                    </div>
-                    <div class="idea-title">${post.name}</div> 
-                    <span class="flex_grow"></span>
-                    <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
-                    <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
+            <div class="idea-preview">
+                <div class="idea-thumb">
+                    <img src="${post.imageSrc}" alt="">
                 </div>
-                <div class="idea-content noselect">
-                    <div class="summary">
-                        <h3>${post.name}</h3>
-                        <h4>${post.desc}</h4>
-                        <div class="tags">
-                            <div class="tag" id="coding">Coding</div>
-                            <div class="tag" id="art">Art</div>
-                        </div>
+                <div class="idea-title">${post.name}</div> 
+                <span class="flex_grow"></span>
+                <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
+                <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
+            </div>
+            <div class="idea-content noselect">
+                <div class="summary">
+                    <h3>${post.name}</h3>
+                    <h4>${post.desc}</h4>
+                    <div class="tags">
+                        <div class="tag" id="coding">Coding</div>
+                        <div class="tag" id="art">Art</div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="info">
+                        <i class="material-icons">access_time</i>
+                        <h5 id="time_created">${post.creationDate}</h5>
                     </div>
                     <div class="info">
-                        <div class="info">
-                            <i class="material-icons">access_time</i>
-                            <h5 id="time_created">${post.creationDate}</h5>
-                        </div>
-                        <div class="info">
-                            <i class="material-icons">person</i>
-                            <h5 id="owner">${post.projectOwner}</h5>
-                        </div>
-                        <div class="info">
-                            <i class="material-icons">groups</i>
-                            <h5 id="contributers">Jams, Bob, gjes</h5>
-                        </div>
+                        <i class="material-icons">person</i>
+                        <h5 id="owner">${post.projectOwner}</h5>
+                    </div>
+                    <div class="info">
+                        <i class="material-icons">groups</i>
+                        <h5 id="contributers">Jams, Bob, gjes</h5>
                     </div>
                 </div>
             </div>
-                `)
+        </div>
+    `)
 }
