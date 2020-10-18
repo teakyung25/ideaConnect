@@ -159,11 +159,12 @@ class Post {
         this.keywords = keywords;
         this.creationDate = creationDate;
 
-        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.postArray
+        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage posts: postArray
         this.feedID = "Invalid feedID";
     }
     
 }
+
 //user class
 class User {
     constructor(username, firstname, lastname, email, keywords, password,creationDate) {
