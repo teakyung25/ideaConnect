@@ -51,14 +51,7 @@ $(function() {
         }
     })
 
-    function verifyUser(form_data, user){
-        let isGood;
-        if (user.username == form_data[0].value && user.password == form_data[1].value) {
-            // alert("Success!");
-            isGood = true;
-        } else {
-            isGood = false;
-        }
-        return isGood;
+    function verifyUser(form_data, user) {
+        return user.username === form_data[0].value && user.password === form_data[1].value
     }
 })
