@@ -151,6 +151,10 @@ a{
     grid-column:2/4;
 }
 
+#explore_feed { 
+  display: none;
+}
+
 /* .feed > div:nth-child(4n) {
     grid-column:2/4;
 } */
@@ -258,6 +262,7 @@ a{
 
 .container {
     margin:0 30px; 
+    position: relative;
 }
 
 
@@ -592,6 +597,15 @@ a{
     padding:10px;
   }
 
+  #logout_btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10PX;
+    BACKGROUND: var(--main-nav-color);
+    COLOR: WHITE;
+    PADDING: 7.5PX 10PX;
+  }
 
 
 

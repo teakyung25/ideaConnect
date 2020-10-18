@@ -97,7 +97,9 @@
                     
                 </div>
             </div>
-            <div class="feed">
+            <div class="feed_container">
+                <div class="feed" id="your_feed"></div>
+                <div class="feed" id="explore_feed"></div>
                 <!-- Posts append here from js -->
             </div>
         </div>
@@ -174,27 +176,28 @@
                 <a href="#account">Account</a>
             </nav>
             <div class="container" id="setting_container">
-                <h1>Your Account</h1>
-                <form id="edit_account">
-                    <input name="username" type="text" value="usernamehere" placeholder="Username" id="username_editable">
-                    <div class="name">
-                        <input type="text" value="firstname" placeholder="Firstname" id="first_editable">
-                        <input type="text" value="lastname" placeholder="Lastname" id="last_editable">
-                    </div>
-                    <input type="text" value="useremail" placeholder="email" id="email_editable">
-                    <p>Select Tags: </p>
-                    <div class="tags" name="tags" id="selectable-tags">
-                        <div class="select_tag tag" id="coding">Coding</div>
-                        <div class="select_tag tag" id="art">Art</div>
-                        <div class="select_tag tag" id="engineering">Engineering</div>
-                        <div class="select_tag tag" id="math">Math</div>
-                        <div class="select_tag tag" id="biology">Biology</div>
-                        <div class="select_tag tag" id="chemistry">Chemistry</div>
-                        <div class="select_tag tag" id="physics">Pyhsics</div>
-                        <div class="select_tag tag" id="finance">Finance</div>
-                    </div>
-                    <button id="edit_account_btn" class="destyle_btn">save</button>
-                </form>
+                    <h1>Your Account</h1>
+                    <form id="edit_account">
+                        <input name="username" type="text" value="usernamehere" placeholder="Username" id="username_editable">
+                        <div class="name">
+                            <input type="text" value="firstname" placeholder="Firstname" id="first_editable">
+                            <input type="text" value="lastname" placeholder="Lastname" id="last_editable">
+                        </div>
+                        <input type="text" value="useremail" placeholder="email" id="email_editable">
+                        <p>Select Tags: </p>
+                        <div class="tags" name="tags" id="selectable-tags">
+                            <div class="select_tag tag" id="coding">Coding</div>
+                            <div class="select_tag tag" id="art">Art</div>
+                            <div class="select_tag tag" id="engineering">Engineering</div>
+                            <div class="select_tag tag" id="math">Math</div>
+                            <div class="select_tag tag" id="biology">Biology</div>
+                            <div class="select_tag tag" id="chemistry">Chemistry</div>
+                            <div class="select_tag tag" id="physics">Pyhsics</div>
+                            <div class="select_tag tag" id="finance">Finance</div>
+                        </div>
+                        <button id="edit_account_btn" class="destyle_btn">save</button>
+                    </form>
+                    <button class="destyle_btn" id="logout_btn">Log Out</button>
             </div>
         </div>
 

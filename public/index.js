@@ -105,6 +105,17 @@ $(function(){
                 `)
         $("#idea_create_modal").hide();
     })
+
+    //Feed btns
+    $("#explore").click(() => {
+        $("#your_feed").hide();
+        $("#explore_feed").show();
+    })
+    $("#yourFeed").click(() => {
+        $("#your_feed").show();
+        $("#explore_feed").hide();
+    })
+
     //close create idea modal
     $(document).on("click", "#close_create_idea", (e)=>{
         $("#idea_create_modal").hide();
@@ -128,12 +139,17 @@ $(function(){
         $("#message_modal").hide();
     })
 
+    //LOGOUT BTN 
+    $("#logout_btn").click(() => {
+        console.log("hihoihohio");
+        location.href = "./auth/"
+    })
 
 
     //Collapse event lisenter 
     $(document).on("click", ".idea-preview", (e) => {
         console.log(e.currentTarget.parentElement.childNodes[3]);
-        $(e.currentTarget.parentElement.childNodes[3]).toggle();
+        $(e.currentTarget.paren/tElement.childNodes[3]).toggle();
     })
 
     //Save account settings 
@@ -369,7 +385,7 @@ function addUserInfoAccounts(username) {
 /// html generating functions
 
 function appendToFeed(post) {
-    $(".feed").append(`
+    $("#your_feed").append(`
     <div class="feed_item" id="${post.feedID}">
         <img src="${post.imageSrc}" alt="no image" class="image_thumb">
         <div class="item_content">
