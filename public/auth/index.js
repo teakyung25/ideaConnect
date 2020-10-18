@@ -36,7 +36,7 @@ $(function() {
         let form_data = $(":input").serializeArray();
         console.log(form_data);
         let user = getStoredUser();
-        let vUser = verifyUser(form_data,user);
+        let vUser = userIsVerified(form_data,user);
         if(vUser) {
             let url ='http://127.0.0.1:5500/public/?' + form_data[0].value + "#";
             // let form = $(`<form  action="${url}" method="POST"><input type="text" name="api_val" value="${form_data[0].value}"></form>`);
@@ -51,7 +51,7 @@ $(function() {
         }
     })
 
-    function verifyUser(form_data, user) {
+    function userIsVerified(form_data, user) {
         return user.username === form_data[0].value && user.password === form_data[1].value
     }
 })
