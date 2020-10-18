@@ -11,7 +11,7 @@
         <title>IdeaConnect</title>
     </head>
     <body>
-
+        <div id="inset_form"></div>
         <div class="modals2" id="message_modal">
             <div id="" class="modal modal_content">
               <div class="modal_heading">
@@ -140,8 +140,8 @@
                                 <h3>Title of Project</h3>
                                 <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies pellentesque sem, nec dapibus turpis bibendum sit amet. </h4>
                                 <div class="tags">
-                                    <div class="tag" id="coding">Coding</div>
-                                    <div class="tag" id="art">Art</div>
+                                    <div class="tag" id="coding_user">Coding</div>
+                                    <div class="tag" id="art_user">Art</div>
                                 </div>
                             </div>
                             <div class="info">
@@ -176,12 +176,12 @@
             <div class="container" id="setting_container">
                 <h1>Your Account</h1>
                 <form id="edit_account">
-                    <input name="username" type="text" value="usernamehere" placeholder="Username">
+                    <input name="username" type="text" value="usernamehere" placeholder="Username" id="username_editable">
                     <div class="name">
-                        <input type="text" value="firstname" placeholder="Firstname">
-                        <input type="text" value="lastname" placeholder="Lastname">
+                        <input type="text" value="firstname" placeholder="Firstname" id="first_editable">
+                        <input type="text" value="lastname" placeholder="Lastname" id="last_editable">
                     </div>
-                    <input type="text" value="useremail" placeholder="email">
+                    <input type="text" value="useremail" placeholder="email" id="email_editable">
                     <p>Select Tags: </p>
                     <div class="tags" name="tags" id="selectable-tags">
                         <div class="select_tag tag" id="coding">Coding</div>

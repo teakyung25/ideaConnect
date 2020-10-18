@@ -254,31 +254,7 @@ a{
 }
 
 
-@media only screen and (max-width: 850px) {
-    .feed {
-        margin:0 30px;
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        grid-auto-rows: minmax(300px, auto);
-        grid-gap:10px;    }
-        .feed > div:nth-child(5n - 5) {
-            grid-column:auto;
-        }
-}
 
-@media only screen and (max-width: 650px) {
-    .feed {
-        margin:0 30px;
-        display:grid;
-        grid-template-columns:repeat(1,1fr);
-        grid-auto-rows: minmax(300px, auto);
-        grid-gap:10px;    
-    }
-    .feed > div:nth-child(5n - 5) {
-        grid-column:auto;
-    }
-
-}
 
 .container {
     margin:0 30px; 
@@ -615,3 +591,42 @@ a{
     color:white;
     padding:10px;
   }
+
+
+
+
+
+
+
+  @media only screen and (max-width: 850px) {
+    .feed {
+        margin:0 30px;
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        grid-auto-rows: minmax(300px, auto);
+        grid-gap:10px;    
+      }
+      .feed > div:nth-child(5n - 5) {
+        grid-column:auto;
+      }
+      #edit_account > * {
+        width: 60%;
+      }
+}
+
+@media only screen and (max-width: 650px) {
+    .feed {
+        margin:0 30px;
+        display:grid;
+        grid-template-columns:repeat(1,1fr);
+        grid-auto-rows: minmax(300px, auto);
+        grid-gap:10px;    
+    }
+    .feed > div:nth-child(5n - 5) {
+        grid-column:auto;
+    }
+    #edit_account > * {
+      width: 100%;
+    }
+
+}

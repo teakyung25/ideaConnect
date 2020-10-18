@@ -2,10 +2,20 @@ $(function(){
     //// storage
     updateFromStorage();
 
-    //// events
+        //Parses user from url 
+        function parseURL (url) {
+            var queryStart = url.indexOf("?") + 1,
+            queryEnd   = url.indexOf("#")  ,
+            query = url.slice(queryStart, queryEnd );
+            console.log(query);
+            return query;
+        }
+        // Get User from url, for testing purposes, better method must be used later
+        var username_universal = parseURL(window.location.href);
+    
+        addUserInfoAccounts(username_universal);
 
     /// feed page
-    // updown description showing
     $(document).on("click", ".updown", (e)=>{
         console.log(e.currentTarget.parentElement.childNodes[5]);
         $(e.currentTarget.parentElement.childNodes[5]).toggle();
@@ -13,6 +23,7 @@ $(function(){
         (e.currentTarget.parentElement.childNodes[1].children[0].innerText == 'keyboard_arrow_up') ? $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_down') : $(e.currentTarget.parentElement.childNodes[1].children[0]).text('keyboard_arrow_up');
     })
 
+    //// events
     // search feed
     $("#searchForm").submit(function(e) {
         e.preventDefault();
@@ -45,11 +56,13 @@ $(function(){
         let keywords = [];
         let date = new Date();
         console.log(allSelect[0]);
+        //gets all the selected keywords 
         for(var i = 0; i < allSelect.length; i++){
             console.log(allSelect[i].id);
             keywords.push(allSelect[i].id);
         }
         console.log("New Post!")
+        //pushes data in to local storage
         let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 8)}.jpg`,"bob","",keywords,date);
         appendToLocalStorage(post);
         
@@ -97,6 +110,7 @@ $(function(){
         $("#idea_create_modal").hide();
     })
 
+    //toggles selected class on tags 
     $(".select_tag").click((e) =>{
         console.log(e.target.className.substring(0,10));
         let element = e.currentTarget;
@@ -122,6 +136,33 @@ $(function(){
         $(e.currentTarget.parentElement.childNodes[3]).toggle();
     })
 
+    //Save account settings 
+    $("#edit_account").submit((e)=>{
+        e.preventDefault();
+        let data = [$("#username_editable").val(),$("#first_editable").val(),$("#last_editable").val(),$("#email_editable").val()];
+        let allSelect = document.querySelectorAll(".selected");
+        let keywords = [];
+        console.log(data);
+        // gets all the selected keywords 
+        for(var i = 0; i < allSelect.length; i++){
+            console.log(allSelect[i].id);
+            keywords.push(allSelect[i].id);
+        }
+        let users = getStoredUserArray();
+        console.log(users);
+        for (let i = 0; i < users.length; i++) {
+            let user = users[i];
+            if (user.username == data[0]) {
+                let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
+                userObject.indexStoredAt = users.length; // special value for tracking order of storage
+                updateUserID(userObject);
+                users[i] = userObject;
+                break;
+            }
+        }
+        localStorage.setItem('users', JSON.stringify({usersArray: users})); // updates localStorage with the new list
+    })
+
 })
 
 
@@ -141,6 +182,23 @@ class Post {
     }
     
 }
+//user class
+class User {
+    constructor(username, firstname, lastname, email, keywords, password,creationDate) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.keywords = keywords;
+        this.password = password;
+        this.creationDate = creationDate;
+
+        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.ideaArray
+        this.userID = "Invalid feedID";
+    }
+    
+}
+
 
 /// general helper functions
 function includesCaseInsensitive(testString, filterString) {
@@ -177,12 +235,35 @@ function initializeLocalStorage() {
     appendToLocalStorage(new Post("Name", "A boring description", "./pics/2.jpg"));
 }
 
+// resets localStoarge with user temp data. for testing
+// function initializeUserLocalStorage() {
+//     localStorage.clear();
+
+//     /// example localStorage setup:
+//     // localStorage.setItem("ideas", JSON.stringify( 
+//     //     {
+//     //     ideaArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
+//     //                 new Post("Name", "A boring description", "./pics/2.jpg")]
+//     //     }
+//     // ));
+//     let date = new Date();
+//     appendToUserLocalStorage(new User("kyim","Bob", "Kim", "bob.kim@bob.kim",[],date));
+// }
+
+
 // get the stored idea array in javascript JSON object form
 function getStoredIdeaArray() {
     var ideaStorage = JSON.parse(localStorage.getItem('ideas'));
     if (!ideaStorage) return null;
 
     return ideaStorage.ideaArray;
+}
+
+function getStoredUserArray() {
+    var userStorage = JSON.parse(localStorage.getItem('users'));
+    if (!userStorage) return null;
+
+    return userStorage.usersArray;
 }
 
 function updateFromStorage() {
@@ -214,6 +295,27 @@ function appendToLocalStorage(post) {
     localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage with the new list
 }
 
+
+// function appendToUserLocalStorage(user) {
+//     var existingKey = localStorage.getItem('users'); // current array
+//     if (!existingKey) { // doesn't exist yet
+//         createLocalStorageArray(user); // makes first instance
+//         return;
+//     }
+
+//     existingKey = JSON.parse(existingKey); // duplicates array
+
+//     // add any data that needs to be saved here:
+//     user.indexStoredAt = existingKey.ideaArray.length; // special value for tracking order of storage
+//     updateFeedID(user);
+//     console.log(user.keywords)
+
+//     existingKey.ideaArray[user.indexStoredAt] = user; // adds post to end of list
+
+//     localStorage.setItem('users', JSON.stringify(existingKey)); // updates localStorage with the new list
+// }
+
+
 function createLocalStorageArray(firstPost) {
     firstPost.indexStoredAt = 0;
     updateFeedID(firstPost);
@@ -224,10 +326,46 @@ function createLocalStorageArray(firstPost) {
     ));
 }
 
+// function createLocalUserStorageArray(firstPost) {
+//     firstPost.indexStoredAt = 0;
+//     updateUserID(firstPost);
+//     localStorage.setItem("users", JSON.stringify( 
+//         {
+//         usersArray: [firstPost]
+//         }
+//     ));
+// }
+
 function updateFeedID(post) {
     post.feedID = "item" + post.indexStoredAt;
 }
 
+function updateUserID(user) {
+    user.userID = "item" + user.indexStoredAt;
+}
+
+//updates setting after login
+function addUserInfoAccounts(username) {
+    let users = getStoredUserArray();
+    console.log(users);
+    for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        if (user.username == username) {
+            console.log(user);
+            document.getElementById("username_editable").value = user.username;
+            document.getElementById("first_editable").value = user.firstname;
+            document.getElementById("last_editable").value = user.lastname;
+            document.getElementById("email_editable").value = user.email;
+            for(let i = 0; i < user.keywords.length; i++){
+                let str = user.keywords[i].toLowerCase();
+                console.log(str);
+                console.log(document.querySelectorAll(`#${str}`));
+                document.querySelectorAll(`#${str}`)[1].className = "selected select_tag tag";
+            }
+            break;
+        }
+    }
+}
 /// html generating functions
 
 function appendToFeed(post) {

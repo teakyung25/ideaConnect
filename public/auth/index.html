@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Accounts</title>
+        <link href="./index.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script src="./index.js"></script>
+    </head>
+    <body>
+        <div id="inset_form"></div>
+        <div class="section" id="login_section">
+            <div class="container">
+                <h3>Welcome to IdeaConnect</h3>
+                <form id="login-form">
+                    <input type="text" name="username" id="username" placeholder="username">
+                    <input type="password" name="password" id="password" placeholder="password">
+                    <button id="login" class="destyle_btn">Log In</button>
+                </form>
+                <h5>New? <a href="#create_account_section">Sign Up</a></h5>
+            </div>
+        </div>
+        <div class="section" id="create_account_section">
+            <div class="container" id="create_form_container">
+                <h3>Sign Up</h3>
+                <form id="create-account-form">
+                    <input name="username" type="text" value="" placeholder="username" id="username_make">
+                    <div class="name">
+                        <input name="firstname" type="text" value="" placeholder="first name" id="first_make">
+                        <input name="lastname" type="text" value="" placeholder="last name" id="last_make">
+                    </div>
+                    <input type="email" value="" placeholder="email" id="email_make" name="email">
+                    <input type="password" value="" placeholder="password" id="password_make" name="password">
+                    <p>Select Interests: </p>
+                    <div class="tags" name="tags" id="selectable-tags">
+                        <div class="select_tag tag" id="coding">Coding</div>
+                        <div class="select_tag tag" id="art">Art</div>
+                        <div class="select_tag tag" id="engineering">Engineering</div>
+                        <div class="select_tag tag" id="math">Math</div>
+                        <div class="select_tag tag" id="biology">Biology</div>
+                        <div class="select_tag tag" id="chemistry">Chemistry</div>
+                        <div class="select_tag tag" id="physics">Pyhsics</div>
+                        <div class="select_tag tag" id="finance">Finance</div>
+                    </div>
+                    <button id="sigup" class="destyle_btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
