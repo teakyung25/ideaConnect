@@ -67,44 +67,8 @@ $(function(){
         //pushes data in to local storage
         let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
         appendToLocalStorage(post);
-        
-                $("#idea_container").append(`
-                     <div class="idea_item" id="idea1">
-                                <div class="idea-preview">
-                                    <div class="idea-thumb">
-                                        <img src="${post.imageSrc}" alt="">
-                                    </div>
-                                    <div class="idea-title">${post.name}</div> 
-                                    <span class="flex_grow"></span>
-                                    <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
-                                    <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
-                                </div>
-                                <div class="idea-content noselect">
-                                    <div class="summary">
-                                        <h3>${post.name}</h3>
-                                        <h4>${post.desc}</h4>
-                                        <div class="tags">
-                                            <div class="tag" id="coding">Coding</div>
-                                            <div class="tag" id="art">Art</div>
-                                        </div>
-                                    </div>
-                                    <div class="info">
-                                        <div class="info">
-                                            <i class="material-icons">access_time</i>
-                                            <h5 id="time_created">${post.creationDate}</h5>
-                                        </div>
-                                        <div class="info">
-                                            <i class="material-icons">person</i>
-                                            <h5 id="owner">${post.projectOwner}</h5>
-                                        </div>
-                                        <div class="info">
-                                            <i class="material-icons">groups</i>
-                                            <h5 id="contributers">Jams, Bob, gjes</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                `)
+        appendToYourIdeas(post);
+                
         $("#idea_create_modal").hide();
     })
 
@@ -389,6 +353,7 @@ function addUserInfoAccounts(username) {
     }
 
 }
+
 /// html generating functions
 
 function appendToFeed(post) {
@@ -410,4 +375,44 @@ function appendToFeed(post) {
         </div>
     </div>
     `);
+}
+
+function appendToYourIdeas(post) {
+    $("#idea_container").append(`
+        <div class="idea_item" id="idea1">
+                <div class="idea-preview">
+                    <div class="idea-thumb">
+                        <img src="${post.imageSrc}" alt="">
+                    </div>
+                    <div class="idea-title">${post.name}</div> 
+                    <span class="flex_grow"></span>
+                    <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
+                    <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
+                </div>
+                <div class="idea-content noselect">
+                    <div class="summary">
+                        <h3>${post.name}</h3>
+                        <h4>${post.desc}</h4>
+                        <div class="tags">
+                            <div class="tag" id="coding">Coding</div>
+                            <div class="tag" id="art">Art</div>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info">
+                            <i class="material-icons">access_time</i>
+                            <h5 id="time_created">${post.creationDate}</h5>
+                        </div>
+                        <div class="info">
+                            <i class="material-icons">person</i>
+                            <h5 id="owner">${post.projectOwner}</h5>
+                        </div>
+                        <div class="info">
+                            <i class="material-icons">groups</i>
+                            <h5 id="contributers">Jams, Bob, gjes</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                `)
 }
