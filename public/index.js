@@ -1,6 +1,5 @@
+var user_index;
 $(function(){
-    //// storage
-    updateFromStorage();
 
         //Parses user from url 
         function parseURL (url) {
@@ -12,8 +11,14 @@ $(function(){
         }
         // Get User from url, for testing purposes, better method must be used later
         var username_universal = parseURL(window.location.href);
-    
+        
+
         addUserInfoAccounts(username_universal);
+
+    //// storage
+    updateFromStorage();
+
+
         
     /// feed page
     $(document).on("click", ".updown", (e)=>{
@@ -168,16 +173,20 @@ $(function(){
         }
         let users = getStoredUserArray();
         console.log(users);
-        for (let i = 0; i < users.length; i++) {
-            let user = users[i];
-            if (user.username == data[0]) {
+        // for (let i = 0; i < users.length; i++) {
+            console.log(user_index)
+            let user = users[user_index];
+            console.log(user);
+        //     if (user.username == data[0] ) {
                 let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
                 userObject.indexStoredAt = users.length; // special value for tracking order of storage
                 updateUserID(userObject);
-                users[i] = userObject;
-                break;
-            }
-        }
+                console.log(userObject);
+                users[user_index] = userObject;
+                console.log(users);
+                // break;
+            // }
+        // }
         localStorage.setItem('users', JSON.stringify({usersArray: users})); // updates localStorage with the new list
     })
 
@@ -369,6 +378,8 @@ function addUserInfoAccounts(username) {
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
         if (user.username == username) {
+            user_index = i;
+            console.log(user_index)
             console.log(user);
             document.getElementById("username_editable").value = user.username;
             document.getElementById("first_editable").value = user.firstname;
