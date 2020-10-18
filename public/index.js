@@ -19,6 +19,18 @@ $(function(){
     updateFromStorage();
 
 
+    //Parses user from url 
+    function parseURL (url) {
+        var queryStart = url.indexOf("?") + 1,
+        queryEnd   = url.indexOf("#")  ,
+        query = url.slice(queryStart, queryEnd );
+        console.log(query);
+        return query;
+    }
+    // Get User from url, for testing purposes, better method must be used later
+    var username_universal = parseURL(window.location.href);
+
+    addUserInfoAccounts(username_universal);
         
     /// feed page
     $(document).on("click", ".updown", (e)=>{
@@ -34,7 +46,7 @@ $(function(){
         e.preventDefault();
         console.log("Search Button Pressed");
         var input = $("input#search_bar").val(); // input into search bar
-        searchPosts(getStoredIdeaArray(), input);
+        searchPosts(getStoredPostArray(), input);
     })
 
     // feed post
@@ -72,44 +84,8 @@ $(function(){
         //pushes data in to local storage
         let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
         appendToLocalStorage(post);
-        
-                $("#idea_container").append(`
-                     <div class="idea_item" id="idea1">
-                                <div class="idea-preview">
-                                    <div class="idea-thumb">
-                                        <img src="${post.imageSrc}" alt="">
-                                    </div>
-                                    <div class="idea-title">${post.name}</div> 
-                                    <span class="flex_grow"></span>
-                                    <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
-                                    <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
-                                </div>
-                                <div class="idea-content noselect">
-                                    <div class="summary">
-                                        <h3>${post.name}</h3>
-                                        <h4>${post.desc}</h4>
-                                        <div class="tags">
-                                            <div class="tag" id="coding">Coding</div>
-                                            <div class="tag" id="art">Art</div>
-                                        </div>
-                                    </div>
-                                    <div class="info">
-                                        <div class="info">
-                                            <i class="material-icons">access_time</i>
-                                            <h5 id="time_created">${post.creationDate}</h5>
-                                        </div>
-                                        <div class="info">
-                                            <i class="material-icons">person</i>
-                                            <h5 id="owner">${post.projectOwner}</h5>
-                                        </div>
-                                        <div class="info">
-                                            <i class="material-icons">groups</i>
-                                            <h5 id="contributers">Jams, Bob, gjes</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                `)
+        appendToYourIdeas(post);
+                
         $("#idea_create_modal").hide();
     })
 
@@ -171,7 +147,7 @@ $(function(){
             console.log(allSelect[i].id);
             keywords.push(allSelect[i].id);
         }
-        let users = getStoredUserArray();
+        let users = getStoredUser();
         console.log(users);
         // for (let i = 0; i < users.length; i++) {
             console.log(user_index)
@@ -204,11 +180,12 @@ class Post {
         this.keywords = keywords;
         this.creationDate = creationDate;
 
-        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.ideaArray
+        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage posts: postArray
         this.feedID = "Invalid feedID";
     }
     
 }
+
 //user class
 class User {
     constructor(username, firstname, lastname, email, keywords, password,creationDate) {
@@ -220,7 +197,7 @@ class User {
         this.password = password;
         this.creationDate = creationDate;
 
-        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage.ideaArray
+        this.indexStoredAt = -1; // represents which index this post is stored in, in localStorage users: userArray
         this.userID = "Invalid feedID";
     }
     
@@ -252,9 +229,9 @@ function initializeLocalStorage() {
     localStorage.clear();
 
     /// example localStorage setup:
-    // localStorage.setItem("ideas", JSON.stringify( 
+    // localStorage.setItem("posts", JSON.stringify( 
     //     {
-    //     ideaArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
+    //     postArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
     //                 new Post("Name", "A boring description", "./pics/2.jpg")]
     //     }
     // ));
@@ -267,9 +244,9 @@ function initializeLocalStorage() {
 //     localStorage.clear();
 
 //     /// example localStorage setup:
-//     // localStorage.setItem("ideas", JSON.stringify( 
+//     // localStorage.setItem("posts", JSON.stringify( 
 //     //     {
-//     //     ideaArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
+//     //     postArray: [new Post("Title", "Really cool description", "./pics/1.jpg"), 
 //     //                 new Post("Name", "A boring description", "./pics/2.jpg")]
 //     //     }
 //     // ));
@@ -279,22 +256,23 @@ function initializeLocalStorage() {
 
 
 // get the stored idea array in javascript JSON object form
-function getStoredIdeaArray() {
-    var ideaStorage = JSON.parse(localStorage.getItem('ideas'));
-    if (!ideaStorage) return null;
+function getStoredPostArray() {
+    var postStorage = JSON.parse(localStorage.getItem('posts'));
+    if (!postStorage) return null;
 
-    return ideaStorage.ideaArray;
+    return postStorage.postArray;
 }
 
-function getStoredUserArray() {
+function getStoredUser() {
     var userStorage = JSON.parse(localStorage.getItem('users'));
     if (!userStorage) return null;
 
-    return userStorage.usersArray;
+    return userStorage;
 }
 
 function updateFromStorage() {
-    var storedPosts = getStoredIdeaArray();
+    var storedPosts = getStoredPostArray();
+    var user = getStoredUser();
     if (!storedPosts) return;
 
     storedPosts.forEach(post => {
@@ -304,7 +282,7 @@ function updateFromStorage() {
 
 // use this function whenever adding to localStorage!
 function appendToLocalStorage(post) {
-    var existingKey = localStorage.getItem('ideas'); // current array
+    var existingKey = localStorage.getItem('posts'); // current array
     if (!existingKey) { // doesn't exist yet
         createLocalStorageArray(post); // makes first instance
         return;
@@ -313,13 +291,13 @@ function appendToLocalStorage(post) {
     existingKey = JSON.parse(existingKey); // duplicates array
 
     // add any data that needs to be saved here:
-    post.indexStoredAt = existingKey.ideaArray.length; // special value for tracking order of storage
+    post.indexStoredAt = existingKey.postArray.length; // special value for tracking order of storage
     updateFeedID(post);
     console.log(post.keywords)
 
-    existingKey.ideaArray[post.indexStoredAt] = post; // adds post to end of list
+    existingKey.postArray[post.indexStoredAt] = post; // adds post to end of list
 
-    localStorage.setItem('ideas', JSON.stringify(existingKey)); // updates localStorage with the new list
+    localStorage.setItem('posts', JSON.stringify(existingKey)); // updates localStorage with the new list
 }
 
 
@@ -333,11 +311,11 @@ function appendToLocalStorage(post) {
 //     existingKey = JSON.parse(existingKey); // duplicates array
 
 //     // add any data that needs to be saved here:
-//     user.indexStoredAt = existingKey.ideaArray.length; // special value for tracking order of storage
+//     user.indexStoredAt = existingKey.postArray.length; // special value for tracking order of storage
 //     updateFeedID(user);
 //     console.log(user.keywords)
 
-//     existingKey.ideaArray[user.indexStoredAt] = user; // adds post to end of list
+//     existingKey.postArray[user.indexStoredAt] = user; // adds post to end of list
 
 //     localStorage.setItem('users', JSON.stringify(existingKey)); // updates localStorage with the new list
 // }
@@ -346,9 +324,9 @@ function appendToLocalStorage(post) {
 function createLocalStorageArray(firstPost) {
     firstPost.indexStoredAt = 0;
     updateFeedID(firstPost);
-    localStorage.setItem("ideas", JSON.stringify( 
+    localStorage.setItem("posts", JSON.stringify( 
         {
-        ideaArray: [firstPost]
+        postArray: [firstPost]
         }
     ));
 }
@@ -356,9 +334,9 @@ function createLocalStorageArray(firstPost) {
 // function createLocalUserStorageArray(firstPost) {
 //     firstPost.indexStoredAt = 0;
 //     updateUserID(firstPost);
-//     localStorage.setItem("users", JSON.stringify( 
+//     localStorage.setItem("user", JSON.stringify( 
 //         {
-//         usersArray: [firstPost]
+//         userArray: [firstPost]
 //         }
 //     ));
 // }
@@ -373,7 +351,7 @@ function updateUserID(user) {
 
 //updates setting after login
 function addUserInfoAccounts(username) {
-    let users = getStoredUserArray();
+    let users = getStoredUser();
     console.log(users);
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
@@ -392,33 +370,74 @@ function addUserInfoAccounts(username) {
                 document.querySelectorAll(`#${str}`)[0].className = "selected select_tag tag";
             }
             ////MATCHING ALGORITHM: LOCATION IS HERE JUST FOR TESTING Reasons BETTER place soon
-            if(getStoredIdeaArray() != null) {
-                match(getStoredIdeaArray(),user.keywords, username);
+            if(getStoredPostArray() != null) {
+                match(getStoredPostArray(),user.keywords, username);
             }
             break;
         }
     }
 
 }
+
 /// html generating functions
 
 function appendToFeed(post) {
     $("#your_feed").append(`
-    <div class="feed_item" id="${post.feedID}">
-        <img src="${post.imageSrc}" alt="no image" class="image_thumb">
-        <div class="item_content">
-            <div class="updown">
-                <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
-            </div>
-            <div class="item_title">
-                <h3>${post.name}</h3>
-                <span class="flex_grow"></span>
-                <button class="join_btn">Join</button>
-            </div>
-            <div class="item_detail">
-                ${post.desc}
+        <div class="feed_item" id="${post.feedID}">
+            <img src="${post.imageSrc}" alt="no image" class="image_thumb">
+            <div class="item_content">
+                <div class="updown">
+                    <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
+                </div>
+                <div class="item_title">
+                    <h3>${post.name}</h3>
+                    <span class="flex_grow"></span>
+                    <button class="join_btn">Join</button>
+                </div>
+                <div class="item_detail">
+                    ${post.desc}
+                </div>
             </div>
         </div>
-    </div>
     `);
+}
+
+function appendToYourIdeas(post) {
+    $("#idea_container").append(`
+        <div class="idea_item" id="idea1">
+            <div class="idea-preview">
+                <div class="idea-thumb">
+                    <img src="${post.imageSrc}" alt="">
+                </div>
+                <div class="idea-title">${post.name}</div> 
+                <span class="flex_grow"></span>
+                <!-- <button class="idea_info destyle_btn" ><i class="material-icons">info</i></button> -->
+                <button class="idea_message destyle_btn" ><i class="material-icons">message</i></button>
+            </div>
+            <div class="idea-content noselect">
+                <div class="summary">
+                    <h3>${post.name}</h3>
+                    <h4>${post.desc}</h4>
+                    <div class="tags">
+                        <div class="tag" id="coding">Coding</div>
+                        <div class="tag" id="art">Art</div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="info">
+                        <i class="material-icons">access_time</i>
+                        <h5 id="time_created">${post.creationDate}</h5>
+                    </div>
+                    <div class="info">
+                        <i class="material-icons">person</i>
+                        <h5 id="owner">${post.projectOwner}</h5>
+                    </div>
+                    <div class="info">
+                        <i class="material-icons">groups</i>
+                        <h5 id="contributers">Jams, Bob, gjes</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `)
 }
