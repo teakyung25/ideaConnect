@@ -323,13 +323,14 @@ function appendOtherUserToLocalStorage(otherUser) {
         return;
     }
 
+
     existingKey = JSON.parse(existingKey); // duplicates array
 
     // add any data that needs to be saved here:
     otherUser.indexStoredAt = existingKey.otherUserArray.length; // special value for tracking order of storage
     updateUserID(otherUser);
 
-    existingKey.otherUserArray[user.indexStoredAt] = otherUser; // adds post to end of list
+    existingKey.otherUserArray[otherUser.indexStoredAt] = otherUser; // adds post to end of list
 
     localStorage.setItem('otherUsers', JSON.stringify(existingKey)); // updates localStorage with the new list
 }
