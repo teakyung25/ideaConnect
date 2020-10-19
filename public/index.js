@@ -308,7 +308,13 @@ function updateUserID(user) {
 //updates setting after login
 function addUserInfoAccounts(username) {
     let user = getStoredUser();
-    console.log(user);
+    if (!user) {
+        // early return to prevent referencing a non-existant user. At this point, a user should be prompted to log in 
+        // (ex: "Log In instead of "Account" or "[user.username]").
+        console.log("No user logged in!");
+        return; 
+    } 
+
     if (user.username == username) {
         console.log("Username matches");
         document.getElementById("username_editable").value = user.username;
