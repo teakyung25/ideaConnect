@@ -15,6 +15,11 @@ $(function() {
         }
 
         let user = new User(data[2].value, data[3].value, data[4].value, data[5].value, keywords,data[6].value, date);
+        if (matchingUserWithUsernameInOtherUsers(user.username)) {
+            alert("That username already exists! Try a different username.");
+            return;
+        }
+
         appendOtherUserToLocalStorage(user);
         // window.location.url = "";
         $(location).attr('href', './auth/index.html');
