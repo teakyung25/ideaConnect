@@ -48,7 +48,6 @@ $(function(){
         searchPosts(getStoredPostArray(), input);
     })
 
-
     /// my ideas page
     // my ideas post
     $("#newIdea").click(function() {
@@ -75,7 +74,7 @@ $(function(){
         //pushes data in to local storage
         console.log(Math.floor(Math.random() * 7))
         let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
-        appendToLocalStorage(post);
+        appendPostToLocalStorage(post);
         appendToYourIdeas(post);
                 
         $("#idea_create_modal").hide();
@@ -141,11 +140,9 @@ $(function(){
         }
         let user = getStoredUser();
         console.log(user);
-        // if (user.username == data[0]) {
-            let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
-            // updateUserID(userObject);
-            user = userObject;
-        // }
+        let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
+        // updateUserID(userObject);
+        users = userObject;
         storeUser(user);
     })
 
@@ -217,14 +214,19 @@ function initializeLocalStorage() {
     //                 new Post("Name", "A boring description", "./pics/2.jpg")]
     //     }
     // ));
-    appendToLocalStorage(new Post("Title", "Really cool description", "./pics/1.jpg"));
-    appendToLocalStorage(new Post("Name", "A boring description", "./pics/2.jpg"));
+    appendPostToLocalStorage(new Post("Title", "Really cool description", "./pics/1.jpg"));
+    appendPostToLocalStorage(new Post("Name", "A boring description", "./pics/2.jpg"));
 }
 
-// resets localStoarge with user temp data. For testing purposes only
+// resets localStoarge with logged in user temp data. For testing purposes only
 function initializeUserLocalStorage() {
     let date = new Date();
-    storeUser(new User("kyim","Bob", "Kim", "bob.kim@bob.kim",[],date));
+    storeUser(new User("kyim","Bob", "Kim", "bob.kim@bob.kim",[],));
+}
+
+// resets localStorage with temp user data. For testing purposes only
+function initializeOtherUsersLocalStorage() {
+
 }
 
 
@@ -239,7 +241,7 @@ function getStoredPostArray() {
 function getStoredUser() {
     var userStorage = JSON.parse(localStorage.getItem('user'));
     if (!userStorage) return null;
-
+    
     return userStorage;
 }
 
@@ -247,7 +249,7 @@ function updateFromStorage() {
     var storedPosts = getStoredPostArray();
     var user = getStoredUser();
     if (!storedPosts || !user) return;
-
+    
     storedPosts.forEach(post => {
         if (post.projectOwner == user.username) {
             appendToYourIdeas(post);
@@ -257,12 +259,17 @@ function updateFromStorage() {
             appendToExplore(post);
         }
     });
+    
+}
 
+// updates localStorage with the new user (overwriting the old one)
+function storeUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
 }
 
 // use this function whenever adding to localStorage!
-function appendToLocalStorage(post) {
-    var existingKey = localStorage.getItem('posts'); // current array
+function appendPostToLocalStorage(post) {
+    var existingKey = localStorage.getItem('posts'); // current storage key
     if (!existingKey) { // doesn't exist yet
         createLocalStorageArray(post); // makes first instance
         return;
@@ -280,10 +287,6 @@ function appendToLocalStorage(post) {
     localStorage.setItem('posts', JSON.stringify(existingKey)); // updates localStorage with the new list
 }
 
-// updates localStorage with the new user (overwriting the old one)
-function storeUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
-}
 
 function createLocalStorageArray(firstPost) {
     firstPost.indexStoredAt = 0;
@@ -301,6 +304,42 @@ function updateFeedID(post) {
 
 function updateUserID(user) {
     user.userID = "item" + user.indexStoredAt;
+}
+
+function appendOtherUserToLocalStorage(otherUser) {
+    var existingKey = localStorage.getItem('otherUsers'); // current storage key
+    if (!existingKey) { // doesn't exist yet
+        createOtherUsersLocalStorageArray(otherUser); // makes first instance
+        return;
+    }
+
+    existingKey = JSON.parse(existingKey); // duplicates array
+
+    // add any data that needs to be saved here:
+    otherUser.indexStoredAt = existingKey.otherUserArray.length; // special value for tracking order of storage
+    updateUserID(otherUser);
+
+    existingKey.otherUserArray[user.indexStoredAt] = otherUser; // adds post to end of list
+
+    localStorage.setItem('otherUsers', JSON.stringify(existingKey)); // updates localStorage with the new list
+}
+
+function createOtherUsersLocalStorageArray(firstOtherUser) {
+    firstOtherUser.indexStoredAt = 0;
+    updateUserID(firstOtherUser);
+    localStorage.setItem("otherUsers", JSON.stringify( 
+        {
+        otherUserArray: [firstOtherUser]
+        }
+    ));
+}
+
+function updateUserID(user) {
+    user.userID = "Set correctly";
+}
+
+function getStoredOtherUserArray() {
+    return localStorage.getItem("otherUsers").otherUserArray
 }
 
 //updates setting after login
