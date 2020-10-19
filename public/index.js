@@ -321,11 +321,15 @@ function appendOtherUserToLocalStorage(otherUser) {
 function createOtherUsersLocalStorageArray(firstOtherUser) {
     firstOtherUser.indexStoredAt = 0;
     updateUserID(firstOtherUser);
-    localStorage.setItem("otherUsers", JSON.stringify( 
+    localStorage.setItem("otherUsers", stringifiedOtherUserArray(firstOtherUser));
+}
+
+function stringifiedOtherUserArray(otherUser) {
+    return JSON.stringify( 
         {
-        otherUserArray: [firstOtherUser]
+        otherUserArray: [otherUser]
         }
-    ));
+    );
 }
 
 function updateUserID(user) {
@@ -346,11 +350,13 @@ function editOtherUserStorage(currentUser) {
     storeUser(currentUser);
 
     for (i = 0; i < otherUserArray.length; i++) {
-        if (otherUser.username === currentUser.username) {
-            otherUser = currentUser; // updates here
+        if (otherUserArray[i].username === currentUser.username) {
+            otherUserArray[i] = currentUser; // updates here
             break;
         }
     }
+
+    localStorage.setItem('otherUsers', stringifiedOtherUserArray(otherUserArray[i]));
 }
 
 //updates setting after login
