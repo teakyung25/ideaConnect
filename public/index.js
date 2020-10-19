@@ -76,7 +76,7 @@ $(function(){
         let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
         appendPostToLocalStorage(post);
         appendToYourIdeas(post);
-                
+        
         $("#idea_create_modal").hide();
     })
 
@@ -467,6 +467,7 @@ function appendToExplore(post) {
 }
 
 function appendToYourIdeas(post) {
+    console.log("posteddddd");
     $("#idea_container").append(`
         <div class="idea_item" id="idea1">
             <div class="idea-preview">
@@ -482,9 +483,7 @@ function appendToYourIdeas(post) {
                 <div class="summary">
                     <h3>${post.name}</h3>
                     <h4>${post.desc}</h4>
-                    <div class="tags">
-                        <div class="tag" id="coding">Coding</div>
-                        <div class="tag" id="art">Art</div>
+                    <div class="tags" id="${post.feedID}">
                     </div>
                 </div>
                 <div class="info">
@@ -504,4 +503,9 @@ function appendToYourIdeas(post) {
             </div>
         </div>
     `)
+    console.log(post.keywords);
+    for(let i = 0; i < post.keywords.length; i++) {
+        console.log(post.keywords[i]);
+        $(`#${post.feedID}`).append(`<div class="tag" id="${post.keywords[i]}">${post.keywords[i]}</div>`);
+    }
 }
