@@ -26,26 +26,45 @@ $(function() {
 
     $("#login-form").submit((e) => {
         e.preventDefault();
-        let form_data = $(":input").serializeArray();
-        console.log(form_data);
-        let user = getStoredUser();
-        if (user == null) return;
+        let formData = $(":input").serializeArray();
+        console.log(formData);
         
-        if(userIsVerified(form_data,user)) {
-            let url ='http://127.0.0.1:5500/public/?' + form_data[0].value + "#";
-            // let form = $(`<form  action="${url}" method="POST"><input type="text" name="api_val" value="${form_data[0].value}"></form>`);
-            // $("head").append(form);
-            window.location.href = url;
-            // form.submit();
-            // $('#inset_form').html(`<form action="${url}" name="redirect" method="post" style="display:none;"><input type="text" name="api_data" value="${form_data[0].value}" /></form>`);
-
-            // document.forms['redirect'].submit();
-        } else {
-            alert("Invalid Login! Try again.")
+        var user = matchingUser(formData);
+        if (user == null) {
+            alert("Invalid username or password! Try again.");
+            return;
         }
+
+        let url ='http://127.0.0.1:5500/public/?' + formData[0].value + "#";
+        window.location.href = url;
+        storeUser(user);
     })
 
-    function userIsVerified(form_data, user) {
-        return user.username === form_data[0].value && user.password === form_data[1].value
+    // returns if a username and password match an existing user
+    function matchingUser(formData) {
+        var matchingUser = matchingUserWithUsernameInOtherUsers(formData[0].value);
+        if (matchingUser == null) {
+            alert("Invalid username!");
+            return null;
+        }
+
+        if (formData[1].value !== matchingUser.password) {
+            alert("Invalid password!");
+            return null;
+        }
+
+        return matchingUser;
+    }
+
+    // finds and returns a matching user in otherUsers storage (null if not found)
+    function matchingUserWithUsernameInOtherUsers(username) {
+        var otherUsers = getStoredOtherUserArray();
+        for (i = 0; i < otherUsers.length; i++) {
+            if (username === otherUsers[i].username) {
+                console.log("Checked username: " + otherUsers[i].username);
+                return otherUsers[i];
+            }
+        }
+        return null; // not found
     }
 })

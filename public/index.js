@@ -125,7 +125,8 @@ $(function(){
     //LOGOUT BTN 
     $("#logout_btn").click(() => {
         console.log("hihoihohio");
-        location.href = "./auth/";
+        location.href = "./auth/"
+        localStorage.removeItem('user');
     })
 
 
@@ -149,10 +150,9 @@ $(function(){
         }
         let user = getStoredUser();
         console.log(user);
-        let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
-        // updateUserID(userObject);
-        users = userObject;
-        storeUser(user);
+        let newUser = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
+        // updateUserID(newUser);
+        editOtherUserStorage(newUser);
     })
 
 })
@@ -337,11 +337,15 @@ function appendOtherUserToLocalStorage(otherUser) {
 function createOtherUsersLocalStorageArray(firstOtherUser) {
     firstOtherUser.indexStoredAt = 0;
     updateUserID(firstOtherUser);
-    localStorage.setItem("otherUsers", JSON.stringify( 
+    localStorage.setItem("otherUsers", stringifiedOtherUserArray(firstOtherUser));
+}
+
+function stringifiedOtherUserArray(otherUser) {
+    return JSON.stringify( 
         {
-        otherUserArray: [firstOtherUser]
+        otherUserArray: [otherUser]
         }
-    ));
+    );
 }
 
 function updateUserID(user) {
@@ -349,7 +353,26 @@ function updateUserID(user) {
 }
 
 function getStoredOtherUserArray() {
-    return localStorage.getItem("otherUsers").otherUserArray
+    return JSON.parse(localStorage.getItem("otherUsers")).otherUserArray;
+}
+
+// updates otherUser storage with current (logged in) user
+function editOtherUserStorage(currentUser) {
+    var otherUserArray = getStoredOtherUserArray();
+    if (!otherUserArray || !currentUser) {
+        console.log("Trying to edit a user with no existing data! This shouldn't happen.")
+        return;
+    }
+    storeUser(currentUser);
+
+    for (i = 0; i < otherUserArray.length; i++) {
+        if (otherUserArray[i].username === currentUser.username) {
+            otherUserArray[i] = currentUser; // updates here
+            break;
+        }
+    }
+
+    localStorage.setItem('otherUsers', stringifiedOtherUserArray(otherUserArray[i]));
 }
 
 //updates setting after login
