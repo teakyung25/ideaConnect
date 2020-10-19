@@ -125,7 +125,7 @@ $(function(){
     //LOGOUT BTN 
     $("#logout_btn").click(() => {
         console.log("hihoihohio");
-        location.href = "./auth/"
+        location.href = "./auth/";
     })
 
 
