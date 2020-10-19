@@ -46,14 +46,6 @@ $(function(){
         searchPosts(getStoredPostArray(), input);
     })
 
-    // feed post
-    $("#btnNewPost").click(function() {
-        console.log("New Post Button Pressed");
-        post = new Post("Title Name", "This is a description!", "./pics/1.jpg");
-        appendToLocalStorage(post);
-        appendToFeed(post);
-
-    })
 
     /// my ideas page
     // my ideas post
@@ -149,8 +141,8 @@ $(function(){
         console.log(user);
         // if (user.username == data[0]) {
             let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
-            updateUserID(userObject);
-            users = userObject;
+            // updateUserID(userObject);
+            user = userObject;
         // }
         storeUser(user);
     })
@@ -329,13 +321,17 @@ function addUserInfoAccounts(username) {
             document.querySelectorAll(`#${str}`)[0].className = "selected select_tag tag";
         }
         ////MATCHING ALGORITHM: LOCATION IS HERE JUST FOR TESTING Reasons BETTER place soon
-        if(getStoredPostArray() != null) {
-            match(getStoredPostArray(),user.keywords, username);
-        }
+
     }
 
 }
 
+function gerYourIdeaFeed (username) {
+    let user = getStoredUser();
+    if(getStoredPostArray() != null) {
+        match(getStoredPostArray(),user.keywords, username);
+    }
+}
 /// html generating functions
 
 function appendToFeed(post) {
