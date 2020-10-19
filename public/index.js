@@ -72,8 +72,7 @@ $(function(){
         }
         console.log("New Post!")
         //pushes data in to local storage
-        console.log(Math.floor(Math.random() * 7))
-        let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
+        let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 6 + 1)}.jpg`,username_universal,"",keywords,date);
         appendPostToLocalStorage(post);
         appendToYourIdeas(post);
         
