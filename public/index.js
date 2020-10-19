@@ -193,6 +193,7 @@ function includesCaseInsensitive(testString, filterString) {
 function searchPosts(searchList, filterString) {
     for (let i = 0; i < searchList.length; i++) {
         let post = searchList[i];
+        console.log(post);
         if (includesCaseInsensitive(post.name, filterString)) {
             $("#" + post.feedID).show();
         } else {
