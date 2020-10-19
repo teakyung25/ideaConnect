@@ -102,6 +102,15 @@ $(function(){
         $(e.currentTarget).toggleClass("selected");
     })
 
+    //Message send 
+
+    $("#send_btn_form").submit((e)=>{
+        e.preventDefault();
+        console.log($("#message_sendContent").val());
+        $("#messages_box").append(`
+            <div class='sender_element'><div class="message_elm"><h3 class="message_h3">${$("#message_sendContent").val()}</h3></div></div>
+        `);
+    })
 
     // message modal
     $(document).on("click", ".idea_message", (e)=>{
