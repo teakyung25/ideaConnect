@@ -115,6 +115,7 @@ $(function(){
     $("#logout_btn").click(() => {
         console.log("hihoihohio");
         location.href = "./auth/"
+        localStorage.removeItem('user');
     })
 
 
