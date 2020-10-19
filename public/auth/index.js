@@ -36,6 +36,7 @@ $(function() {
         let form_data = $(":input").serializeArray();
         console.log(form_data);
         let user = getStoredUser();
+        if (user == null) return;
         
         if(userIsVerified(form_data,user)) {
             let url ='http://127.0.0.1:5500/public/?' + form_data[0].value + "#";
