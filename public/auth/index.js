@@ -49,12 +49,12 @@ $(function() {
     function matchingUser(formData) {
         var matchingUser = matchingUserWithUsernameInOtherUsers(formData[0].value);
         if (matchingUser == null) {
-            alert("Invalid username!");
+            // alert("Invalid username!");
             return null;
         }
 
         if (formData[1].value !== matchingUser.password) {
-            alert("Invalid password!");
+            // alert("Invalid password!");
             return null;
         }
 
