@@ -12,9 +12,11 @@ $(function(){
     var username_universal = parseURL(window.location.href);
     
     addUserInfoAccounts(username_universal);
+    getYourIdeaFeed(username_universal);
+    updateFromStorage();
 
     //// storage
-    updateFromStorage();
+    
 
     //Parses user from url 
     function parseURL (url) {
@@ -82,11 +84,11 @@ $(function(){
     //Feed btns
     $("#explore").click(() => {
         $("#your_feed").hide();
-        $("#explore_feed").show();
+        $("#explore_feed").css("display","grid");
     })
     $("#yourFeed").click(() => {
         $("#your_feed").show();
-        $("#explore_feed").hide();
+        $("#explore_feed").css("display","none");
     })
 
     //close create idea modal
@@ -247,9 +249,12 @@ function updateFromStorage() {
     if (!storedPosts || !user) return;
 
     storedPosts.forEach(post => {
-        appendToFeed(post);
-        if (post.projectOwner === user.username) {
+        if (post.projectOwner == user.username) {
             appendToYourIdeas(post);
+        } else {
+            console.log("posted");
+            console.log(post);
+            appendToExplore(post);
         }
     });
 
@@ -326,16 +331,49 @@ function addUserInfoAccounts(username) {
 
 }
 
-function gerYourIdeaFeed (username) {
+function getYourIdeaFeed (username) {
+    var storedPosts = getStoredPostArray();
     let user = getStoredUser();
-    if(getStoredPostArray() != null) {
-        match(getStoredPostArray(),user.keywords, username);
-    }
+    if (!storedPosts || !user) return;
+    let matched = match(getStoredPostArray(),user.keywords, username);
+    console.log(matched);
+    storedPosts.forEach(post => {
+        console.log(post.name)
+        for(let i = 0; i < matched.length; i++){
+            if (post.name == matched[i]) {
+                console.log(matched[i]);
+                appendToFeed(post);
+            }
+        }
+    });
+
+
 }
 /// html generating functions
 
 function appendToFeed(post) {
     $("#your_feed").append(`
+        <div class="feed_item" id="${post.feedID}">
+            <img src="${post.imageSrc}" alt="no image" class="image_thumb">
+            <div class="item_content">
+                <div class="updown">
+                    <i class="material-icons" id="item_toggle">keyboard_arrow_up</i>
+                </div>
+                <div class="item_title">
+                    <h3>${post.name}</h3>
+                    <span class="flex_grow"></span>
+                    <button class="join_btn">Join</button>
+                </div>
+                <div class="item_detail">
+                    ${post.desc}
+                </div>
+            </div>
+        </div>
+    `);
+}
+
+function appendToExplore(post) {
+    $("#explore_feed").append(`
         <div class="feed_item" id="${post.feedID}">
             <img src="${post.imageSrc}" alt="no image" class="image_thumb">
             <div class="item_content">
