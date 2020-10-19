@@ -1,11 +1,4 @@
 $(function() {
-    //toggles selected class on tags 
-    $(".select_tag").click((e) =>{
-        console.log(e.target.className.substring(0,10));
-        let element = e.currentTarget;
-        $(e.currentTarget).toggleClass("selected");
-    })
-
     //create account
     $("#create-account-form").submit((e) => {
         // e.preventDefault();
