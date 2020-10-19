@@ -79,6 +79,7 @@ $(function(){
         }
         console.log("New Post!")
         //pushes data in to local storage
+        console.log(Math.floor(Math.random() * 7))
         let post = new Post(data[0].value,data[1].value,`./pics/${Math.floor(Math.random() * 7)}.jpg`,username_universal,"",keywords,date);
         appendToLocalStorage(post);
         appendToYourIdeas(post);
@@ -129,7 +130,7 @@ $(function(){
     //Collapse event lisenter 
     $(document).on("click", ".idea-preview", (e) => {
         console.log(e.currentTarget.parentElement.childNodes[3]);
-        $(e.currentTarget.paren/tElement.childNodes[3]).toggle();
+        $(e.currentTarget.parentElement.childNodes[3]).toggle();
     })
 
     //Save account settings 
@@ -146,11 +147,11 @@ $(function(){
         }
         let user = getStoredUser();
         console.log(user);
-        if (user.username == data[0]) {
+        // if (user.username == data[0]) {
             let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
             updateUserID(userObject);
             users = userObject;
-        }
+        // }
         storeUser(user);
     })
 
@@ -256,7 +257,7 @@ function updateFromStorage() {
     storedPosts.forEach(post => {
         appendToFeed(post);
         if (post.projectOwner === user.username) {
-            appendToYourIdeas();
+            appendToYourIdeas(post);
         }
     });
 
