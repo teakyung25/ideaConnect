@@ -147,11 +147,9 @@ $(function(){
         }
         let user = getStoredUser();
         console.log(user);
-        // if (user.username == data[0]) {
-            let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
-            updateUserID(userObject);
-            users = userObject;
-        // }
+        let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
+        updateUserID(userObject);
+        users = userObject;
         storeUser(user);
     })
 
