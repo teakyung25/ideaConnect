@@ -138,10 +138,9 @@ $(function(){
         }
         let user = getStoredUser();
         console.log(user);
-        let userObject = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
-        // updateUserID(userObject);
-        users = userObject;
-        storeUser(user);
+        let newUser = new User(data[0], data[1], data[2], data[3], keywords, user.password, user.date);
+        // updateUserID(newUser);
+        editOtherUserStorage(newUser);
     })
 
 })
@@ -334,7 +333,24 @@ function updateUserID(user) {
 }
 
 function getStoredOtherUserArray() {
-    return localStorage.getItem("otherUsers").otherUserArray
+    return JSON.parse(localStorage.getItem("otherUsers")).otherUserArray;
+}
+
+// updates otherUser storage with current (logged in) user
+function editOtherUserStorage(currentUser) {
+    var otherUserArray = getStoredOtherUserArray();
+    if (!otherUserArray || !currentUser) {
+        console.log("Trying to edit a user with no existing data! This shouldn't happen.")
+        return;
+    }
+    storeUser(currentUser);
+
+    for (i = 0; i < otherUserArray.length; i++) {
+        if (otherUser.username === currentUser.username) {
+            otherUser = currentUser; // updates here
+            break;
+        }
+    }
 }
 
 //updates setting after login
