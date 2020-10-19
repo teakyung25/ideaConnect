@@ -64,6 +64,7 @@ $(function() {
     // finds and returns a matching user in otherUsers storage (null if not found)
     function matchingUserWithUsernameInOtherUsers(username) {
         var otherUsers = getStoredOtherUserArray();
+        if (otherUsers == null) return null;
         for (i = 0; i < otherUsers.length; i++) {
             if (username === otherUsers[i].username) {
                 console.log("Checked username: " + otherUsers[i].username);

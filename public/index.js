@@ -353,7 +353,9 @@ function updateUserID(user) {
 }
 
 function getStoredOtherUserArray() {
-    return JSON.parse(localStorage.getItem("otherUsers")).otherUserArray;
+    var otherUserStorage = JSON.parse(localStorage.getItem('otherUsers'));
+    if (!otherUserStorage) return null;
+    return otherUserStorage.otherUserArray;
 }
 
 // updates otherUser storage with current (logged in) user
