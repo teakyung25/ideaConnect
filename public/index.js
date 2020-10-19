@@ -372,8 +372,8 @@ function editOtherUserStorage(currentUser) {
             break;
         }
     }
-
-    localStorage.setItem('otherUsers', stringifiedOtherUserArray(otherUserArray[i]));
+    
+    localStorage.setItem('otherUsers', JSON.stringify({otherUserArray: otherUserArray}));
 }
 
 //updates setting after login
