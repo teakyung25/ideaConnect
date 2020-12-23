@@ -510,3 +510,14 @@ function appendToYourIdeas(post) {
         $(`#${post.feedID}`).append(`<div class="tag" id="${post.keywords[i]}">${post.keywords[i]}</div>`);
     }
 }
+
+
+
+// init preview data:
+function initOtherUsers(otherUserString) {
+    localStorage.setItem("otherUsers", JSON.stringify(otherUserString));
+}
+
+function initPosts(postString) {
+    localStorage.setItem('posts', JSON.stringify(postString));
+}
